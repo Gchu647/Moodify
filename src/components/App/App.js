@@ -44,7 +44,7 @@ class App extends Component {
   getTrack(token) {
     return axios({
       method: 'get',
-      url: `https://api.spotify.com/v1/tracks/4HBZA5flZLE435QTztThqH?market=US`,
+      url: `https://api.spotify.com/v1/tracks/6WrI0LAC5M1Rw2MnX2ZvEg?market=US`,
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
