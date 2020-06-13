@@ -17,20 +17,24 @@ class App extends Component {
         song_preview: null,
       }]
     }
+
+    this.getToken = this.getToken.bind(this);
   }
 
   async componentDidMount() {
     // Fetch token using client credentials flow  authorization
-    let _token;
+    const _token = await this.getToken();
+    console.log('result', _token);
+  }
 
-    axios.post(
+  getToken () {
+    return axios.post(
       'https://accounts.spotify.com/api/token',
       qs.stringify(data),
       headers
     )
     .then( response => {
-      _token = response.data.access_token;
-      console.log('result', _token);
+      return response.data.access_token;
     })
     .catch( err => console.log(err));
   }
