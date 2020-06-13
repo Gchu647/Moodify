@@ -6,15 +6,31 @@ import logo from '../../logo.svg';
 import './App.css';
 
 class App extends Component {
-  componentDidMount() {
+  constructor() {
+    super();
+
+    this.state = {
+      token: null,
+      items: [{
+        name: null,
+        album_image: null,
+        song_preview: null,
+      }]
+    }
+  }
+
+  async componentDidMount() {
     // Fetch token using client credentials flow  authorization
+    let _token;
+
     axios.post(
       'https://accounts.spotify.com/api/token',
       qs.stringify(data),
       headers
     )
     .then( response => {
-      console.log('result', response.data);
+      _token = response.data.access_token;
+      console.log('result', _token);
     })
     .catch( err => console.log(err));
   }
