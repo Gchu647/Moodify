@@ -14,17 +14,19 @@ class App extends Component {
       items: {
         name: null,
         album_image: null,
-        song_preview: null,
-      }
+        song_audio: null,
+      },
+      songPlaying: false,
     }
 
     this.getToken = this.getToken.bind(this);
     this.getSongPreview = this.getSongPreview.bind(this);
-    this.playAudio = this.playAudio.bind(this);
+    this.audioControl = this.audioControl.bind(this);
   }
 
   async componentDidMount() {
     // Fetch token using client credentials flow  authorization
+    console.log('componentDidMount: ', this.state.items.song_audio);
     const _token = await this.getToken();
     console.log('result', _token);
     
@@ -62,17 +64,24 @@ class App extends Component {
         items: {
           name: response.data.name,
           album_image: null,
-          song_preview: response.data.preview_url,
+          song_audio: new Audio(response.data.preview_url),
         }
       });
     })
     .catch( err => console.log(err));
   }
 
-  playAudio() {
-    console.log('playAudio', this.state.items.song_preview);
-    let audio = new Audio(this.state.items.song_preview);
-    audio.play();
+  audioControl() {
+    console.log('audioControl', this.state.items.song_audio);
+
+    if(!this.state.songPlaying && this.state.items.song_audio) { // if song is not playing and song_audio is not falsy
+      this.state.items.song_audio.play(); // play song
+      this.setState({songPlaying: true});
+    } else {
+      this.state.items.song_audio.pause(); // pause song
+      this.setState({songPlaying: false});
+    }
+    
   }
 
   render() {
@@ -83,8 +92,8 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <button onClick={this.playAudio}>
-            Play Audio
+          <button onClick={this.audioControl}>
+            Play / Pause
           </button>
         </header>
       </div>
