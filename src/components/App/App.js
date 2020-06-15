@@ -49,7 +49,7 @@ class App extends Component {
   getSongTrack(token) {
     return axios({
       method: 'get',
-      url: `https://api.spotify.com/v1/tracks/6WrI0LAC5M1Rw2MnX2ZvEg?market=US`,
+      url: `https://api.spotify.com/v1/tracks/7eJMfftS33KTjuF7lTsMCx?market=US`,
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -94,7 +94,7 @@ class App extends Component {
           <img src={this.state.items.album_image} />
           {console.log('render:, ', this.state.items.album_image)}
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            Spotify API Testing
           </p>
           <button onClick={this.audioControl}>
             Play / Pause
