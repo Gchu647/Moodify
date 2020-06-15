@@ -11,22 +11,24 @@ class App extends Component {
 
     this.state = {
       token: null,
-      items: [{
+      items: {
         name: null,
         album_image: null,
         song_preview: null,
-      }]
+      }
     }
 
     this.getToken = this.getToken.bind(this);
-    this.getTrack = this.getTrack.bind(this);
+    this.getSongPreview = this.getSongPreview.bind(this);
   }
 
   async componentDidMount() {
     // Fetch token using client credentials flow  authorization
     const _token = await this.getToken();
     console.log('result', _token);
-    await this.getTrack(_token);
+    
+    await this.getSongPreview(_token);// get track
+    console.log('state: ', this.state.items);
   }
 
   getToken (token) {
@@ -37,11 +39,12 @@ class App extends Component {
     )
     .then( response => {
       return response.data.access_token;
+
     })
     .catch( err => console.log(err));
   }
 
-  getTrack(token) {
+  getSongPreview(token) {
     return axios({
       method: 'get',
       url: `https://api.spotify.com/v1/tracks/6WrI0LAC5M1Rw2MnX2ZvEg?market=US`,
@@ -53,6 +56,14 @@ class App extends Component {
     .then( response => {
       console.log('track name: ' + response.data.name);
       console.log('track preview_url' + response.data.preview_url);
+
+      this.setState({ 
+        items: {
+          name: response.data.name,
+          album_image: null,
+          song_preview: response.data.preview_url,
+        }
+      });
     })
     .catch( err => console.log(err));
   }
