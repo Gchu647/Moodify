@@ -20,6 +20,7 @@ class App extends Component {
 
     this.getToken = this.getToken.bind(this);
     this.getSongPreview = this.getSongPreview.bind(this);
+    this.playAudio = this.playAudio.bind(this);
   }
 
   async componentDidMount() {
@@ -28,7 +29,7 @@ class App extends Component {
     console.log('result', _token);
     
     await this.getSongPreview(_token);// get track
-    console.log('state: ', this.state.items);
+    console.log('componentDidMount: ', this.state.items);
   }
 
   getToken (token) {
@@ -54,8 +55,8 @@ class App extends Component {
       }
     })
     .then( response => {
-      console.log('track name: ' + response.data.name);
-      console.log('track preview_url' + response.data.preview_url);
+      // console.log('track name: ' + response.data.name);
+      // console.log('track preview_url' + response.data.preview_url);
 
       this.setState({ 
         items: {
@@ -68,6 +69,12 @@ class App extends Component {
     .catch( err => console.log(err));
   }
 
+  playAudio() {
+    console.log('playAudio', this.state.items.song_preview);
+    let audio = new Audio(this.state.items.song_preview);
+    audio.play();
+  }
+
   render() {
     return (
       <div className="App">
@@ -76,14 +83,9 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <button onClick={this.playAudio}>
+            Play Audio
+          </button>
         </header>
       </div>
     );
