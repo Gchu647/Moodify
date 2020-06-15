@@ -20,17 +20,16 @@ class App extends Component {
     }
 
     this.getToken = this.getToken.bind(this);
-    this.getSongPreview = this.getSongPreview.bind(this);
+    this.getSongTrack = this.getSongTrack.bind(this);
     this.audioControl = this.audioControl.bind(this);
   }
 
   async componentDidMount() {
     // Fetch token using client credentials flow  authorization
-    console.log('componentDidMount: ', this.state.items.song_audio);
     const _token = await this.getToken();
     console.log('result', _token);
     
-    await this.getSongPreview(_token);// get track
+    await this.getSongTrack(_token);// get track
     console.log('componentDidMount: ', this.state.items);
   }
 
@@ -47,7 +46,7 @@ class App extends Component {
     .catch( err => console.log(err));
   }
 
-  getSongPreview(token) {
+  getSongTrack(token) {
     return axios({
       method: 'get',
       url: `https://api.spotify.com/v1/tracks/6WrI0LAC5M1Rw2MnX2ZvEg?market=US`,
@@ -89,7 +88,11 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
+          {!this.state.items.album_image && (
+            <img src={logo} className="App-logo" alt="logo" />
+          )}
+          <img src={this.state.items.album_image} />
+          {console.log('render:, ', this.state.items.album_image)}
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
