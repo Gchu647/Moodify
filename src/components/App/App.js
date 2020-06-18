@@ -59,7 +59,7 @@ class App extends Component {
     .then( response => {
       // console.log('track name: ' + response.data.name);
       // console.log('track preview_url' + response.data.preview_url);
-      console.log('songPreview:', response.data.album.images[1].url);
+       console.log('response data' + response.data.album.artists[0].name);
 
       this.setState({ 
         items: {
