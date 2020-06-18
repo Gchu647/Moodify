@@ -3,7 +3,8 @@ import './SongItem.css'
 
 const SongItem = props => {
   const {
-    songName, 
+    songName,
+    artists, 
     albumImage, 
     audioControl
   } = props;
@@ -28,7 +29,7 @@ const SongItem = props => {
         <div className='song-container-bottom-left'>
           {/* Make the songName shorter! */}
           <p className='song-title'>{songName}</p>
-          <p className='song-artists'>Artist Name</p>
+          <p className='song-artists'>{artists}</p>
         </div>
         <div className='song-container-bottom-right'>
           <i class="fa fa-play-circle" aria-hidden="true" onClick={audioControl}></i>

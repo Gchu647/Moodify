@@ -14,6 +14,7 @@ class App extends Component {
       token: null,
       items: {
         name: null,
+        artists: null,
         album_image: null,
         song_audio: null,
       },
@@ -59,11 +60,16 @@ class App extends Component {
     .then( response => {
       // console.log('track name: ' + response.data.name);
       // console.log('track preview_url' + response.data.preview_url);
-       console.log('response data' + response.data.album.artists[0].name);
+       
+      // prepare the artist names
+       let artists = response.data.album.artists.map( elem => {
+         return elem.name
+       });
 
       this.setState({ 
         items: {
           name: response.data.name,
+          artists: artists.join(', '),
           album_image: response.data.album.images[1].url,
           song_audio: new Audio(response.data.preview_url),
         }
@@ -88,20 +94,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <header className="App-header">
-          {!this.state.items.album_image && (
-            <img src={logo} className="App-logo" alt="logo" />
-          )}
-          <img src={this.state.items.album_image} />
-          <p>
-            Spotify API Testing
-          </p>
-          <button onClick={this.audioControl}>
-            Play / Pause
-          </button>
-        </header> */}
         <SongItem 
           songName={this.state.items.name}
+          artists={this.state.items.artists}
           albumImage={this.state.items.album_image}
           audioControl={this.audioControl}
         />

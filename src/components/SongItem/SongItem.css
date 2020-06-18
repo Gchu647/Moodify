@@ -31,6 +31,11 @@
   width: 85%;
 }
 
+.song-artists {
+  font-size: 11px;
+  color: #b3b3b3;
+}
+
 .song-container-bottom-right {
   display: flex;
   align-items: flex-end;
