@@ -4,6 +4,7 @@ import axios from 'axios';
 import { headers, data } from '../../config';
 import logo from '../../logo.svg';
 import './App.css';
+import SongItem from '../SongItem/SongItem';
 
 class App extends Component {
   constructor() {
@@ -87,7 +88,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
+        {/* <header className="App-header">
           {!this.state.items.album_image && (
             <img src={logo} className="App-logo" alt="logo" />
           )}
@@ -99,7 +100,8 @@ class App extends Component {
           <button onClick={this.audioControl}>
             Play / Pause
           </button>
-        </header>
+        </header> */}
+        <SongItem />
       </div>
     );
   }
