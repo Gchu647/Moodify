@@ -1,10 +1,24 @@
 import React from 'react';
 import './SongItem.css'
 
-const SongItem = ({songName, albumImage, audioControl}) => {
+const SongItem = props => {
+  const {
+    songName, 
+    albumImage, 
+    audioControl
+  } = props;
+  
+  let sectionStyle = {
+    width: '100%',
+    height: '221px',
+    backgroundImage: `url(${albumImage})`,
+    backgroundSize: 'contain',
+    backgroundColor: 'yellow'
+  };
+
   return (
     <div className='song-container'>
-      {console.log(songName, albumImage, audioControl)}
+      {console.log(songName, albumImage, 'hi')}
       <div className='album-image' style={sectionStyle}>
 		    <div className='song-score-container'>
 			    <p className='song-score'> 85</p>
@@ -17,20 +31,11 @@ const SongItem = ({songName, albumImage, audioControl}) => {
           <p className='song-artists'>Artist Name</p>
         </div>
         <div className='song-container-bottom-right'>
-          <i class="fa fa-play-circle" aria-hidden="true"></i>
+          <i class="fa fa-play-circle" aria-hidden="true" onClick={audioControl}></i>
         </div>
       </div>
     </div>
   );
 }
-var bgUrl = 'https://i.scdn.co/image/ab67616d00001e02bf01fd0986a195d485922167';
-
-var sectionStyle = {
-  width: '100%',
-  height: '221px',
-  backgroundImage: `url(${bgUrl})`,
-  backgroundSize: 'contain',
-  backgroundColor: 'yellow'
-};
 
 export default SongItem;
