@@ -1,0 +1,42 @@
+.song-container {
+  width: 221px;
+  height: 299px;
+  background-color: #262626;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.song-score-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.song-score-container:hover {
+  background-color: rgba(29, 185, 84, 0.75);
+}
+
+.song-score {
+  font-size: 40px;
+}
+
+.song-container-bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.song-container-bottom-left {
+  width: 85%;
+}
+
+.song-container-bottom-right {
+  display: flex;
+  align-items: flex-end;
+}
+
+.fa-play-circle {
+  font-size: 45px;
+  color: #1db954;
+}
