@@ -93,7 +93,6 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
           )}
           <img src={this.state.items.album_image} />
-          {console.log('render:, ', this.state.items.album_image)}
           <p>
             Spotify API Testing
           </p>
@@ -101,7 +100,11 @@ class App extends Component {
             Play / Pause
           </button>
         </header> */}
-        <SongItem />
+        <SongItem 
+          songName={this.state.items.name}
+          albumImage={this.state.items.album_image}
+          audioControl={this.audioControl}
+        />
       </div>
     );
   }

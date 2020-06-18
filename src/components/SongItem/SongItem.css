@@ -1,6 +1,6 @@
 .song-container {
   width: 221px;
-  height: 299px;
+  height: auto; /* Use to be 299px */
   background-color: #262626;
   color: white;
   padding: 15px;

@@ -1,9 +1,10 @@
 import React from 'react';
 import './SongItem.css'
 
-const SongItem = props => {
+const SongItem = ({songName, albumImage, audioControl}) => {
   return (
     <div className='song-container'>
+      {console.log(songName, albumImage, audioControl)}
       <div className='album-image' style={sectionStyle}>
 		    <div className='song-score-container'>
 			    <p className='song-score'> 85</p>
@@ -11,8 +12,9 @@ const SongItem = props => {
 	    </div>
       <div className='song-container-bottom'>
         <div className='song-container-bottom-left'>
-          <p className='song-title'>Falling</p>
-          <p className='song-artists'>Travor Daniel</p>
+          {/* Make the songName shorter! */}
+          <p className='song-title'>{songName}</p>
+          <p className='song-artists'>Artist Name</p>
         </div>
         <div className='song-container-bottom-right'>
           <i class="fa fa-play-circle" aria-hidden="true"></i>
