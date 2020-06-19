@@ -146,6 +146,7 @@ class App extends Component {
         <br/>
         <BillboardSongs 
           songTracks={this.state.items}
+          audioControl={this.audioControl}
         />
         {/* <SongItem 
           songName={this.state.items.name}
