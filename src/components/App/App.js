@@ -4,7 +4,7 @@ import axios from 'axios';
 import { headers, data } from '../../config';
 import logo from '../../logo.svg';
 import './App.css';
-import SongItem from '../SongItem/SongItem';
+import BillboardSongs from '../BillboardSongs/BillboardSongs';
 
 class App extends Component {
   constructor() {
@@ -34,7 +34,7 @@ class App extends Component {
     const _token = await this.getToken();
     // Requst for Billboard Playst and use for loop to get Get track.name and track.id and put it in an object.
     const songIdList = await this.getBillboardSongId(_token);
-    const songTracks = this.getAllSongTracks(_token, songIdList);
+    const songTracks = await this.getAllSongTracks(_token, songIdList);
     console.log('song tracks: ', songTracks);
 
     this.setState({ items: songTracks});
@@ -123,7 +123,6 @@ class App extends Component {
       return response.filter(song => {
         return song;
       })
-      // console.log('Promise all: ', newResults);
     })
   }
 
@@ -145,12 +144,15 @@ class App extends Component {
       <div className="App">
         <button onClick={this.showState}>Show State</button>
         <br/>
-        <SongItem 
+        <BillboardSongs 
+          songTracks={this.state.items}
+        />
+        {/* <SongItem 
           songName={this.state.items.name}
           artists={this.state.items.artists}
           albumImage={this.state.items.album_image}
           audioControl={this.audioControl}
-        />
+        /> */}
       </div>
     );
   }
