@@ -31,6 +31,10 @@
   width: 85%;
 }
 
+.song-title {
+  font-size: 14px;
+}
+
 .song-artists {
   font-size: 11px;
   color: #b3b3b3;
