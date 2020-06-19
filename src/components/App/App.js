@@ -23,6 +23,7 @@ class App extends Component {
 
     this.getToken = this.getToken.bind(this);
     this.getBillboardSongId = this.getBillboardSongId.bind(this);
+    this.getAllSongTracks = this.getAllSongTracks.bind(this);
     this.getSongTrack = this.getSongTrack.bind(this);
     this.audioControl = this.audioControl.bind(this);
   }
@@ -32,7 +33,8 @@ class App extends Component {
     const _token = await this.getToken();
     // Requst for Billboard Playst and use for loop to get Get track.name and track.id and put it in an object.
     const songIdList = await this.getBillboardSongId(_token);
-    console.log(songIdList)
+    const songTracks = this.getAllSongTracks(_token, songIdList);
+    // console.log('song tracks: ', songTracks);
     
     // await this.getSongTrack(_token);// get track
   }
@@ -71,6 +73,48 @@ class App extends Component {
       return songId;
     })
     .catch( err => console.log(err));
+  }
+  
+  getAllSongTracks(token, songIdList) {
+    let songTracks = songIdList.map(songId => {
+      return axios({
+        method: 'get',
+        url: `https://api.spotify.com/v1/tracks/${songId}?market=US`,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then( response => {
+        // console.log('track name 2: ' + response.data.name);
+        // console.log('track preview_url2' + response.data.preview_url);
+         
+        // prepare the artist names
+        let artists = response.data.album.artists.map( elem => {
+          return elem.name
+        });
+         
+        if (response.data.preview_url) { // only return songs that have a audio preview
+          let songItem = {
+            name: response.data.name,
+            artists: artists.join(', '),
+            album_image: response.data.album.images[1].url,
+            song_audio: new Audio(response.data.preview_url),
+           }
+  
+           console.log('songItem', songItem);
+           return songItem
+        }
+      })
+      .catch( err => console.log(err));
+    })
+
+    // Wait for all axios requests to process first, and then return songs with features.
+    return axios.all(songTracks)
+    .then(() => {
+      console.log('song tracks: ', songTracks);
+      return songTracks;
+    })
   }
 
   getSongTrack(token) {
