@@ -22,6 +22,7 @@ class App extends Component {
     }
 
     this.getToken = this.getToken.bind(this);
+    this.getBillboardSongId = this.getBillboardSongId.bind(this);
     this.getSongTrack = this.getSongTrack.bind(this);
     this.audioControl = this.audioControl.bind(this);
   }
@@ -29,13 +30,14 @@ class App extends Component {
   async componentDidMount() {
     // Fetch token using client credentials flow  authorization
     const _token = await this.getToken();
-    console.log('result', _token);
+    // Requst for Billboard Playst and use for loop to get Get track.name and track.id and put it in an object.
+    const songIdList = await this.getBillboardSongId(_token);
+    console.log(songIdList)
     
-    await this.getSongTrack(_token);// get track
-    console.log('componentDidMount: ', this.state.items);
+    // await this.getSongTrack(_token);// get track
   }
 
-  getToken (token) {
+  getToken () {
     return axios.post(
       'https://accounts.spotify.com/api/token',
       qs.stringify(data),
@@ -44,6 +46,29 @@ class App extends Component {
     .then( response => {
       return response.data.access_token;
 
+    })
+    .catch( err => console.log(err));
+  }
+
+  getBillboardSongId(token) {
+    console.log('get BillBoard Music!');
+    const playlist_id = '6UeSakyzhiEt4NB3UAd6NQ'; // BillBoard Playlist ID
+    const songId = [];
+
+    return axios({
+      method: 'get',
+      url: `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then( response => {
+      for (let i = 0; i < 20; i++) { // change song limit over here
+        songId.push(response.data.items[i].track.id)
+      }
+
+      return songId;
     })
     .catch( err => console.log(err));
   }
