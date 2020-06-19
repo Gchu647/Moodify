@@ -34,7 +34,7 @@ class App extends Component {
     // Requst for Billboard Playst and use for loop to get Get track.name and track.id and put it in an object.
     const songIdList = await this.getBillboardSongId(_token);
     const songTracks = this.getAllSongTracks(_token, songIdList);
-    // console.log('song tracks: ', songTracks);
+    console.log('song tracks: ', songTracks);
     
     // await this.getSongTrack(_token);// get track
   }
@@ -102,50 +102,54 @@ class App extends Component {
             song_audio: new Audio(response.data.preview_url),
            }
   
-           console.log('songItem', songItem);
-           return songItem
+          //  console.log('songItem', songItem);
+           return songItem;
         }
+
+        return null;
       })
       .catch( err => console.log(err));
     })
 
-    // Wait for all axios requests to process first, and then return songs with features.
+    // Wait for all axios requests to process first, then filter out all the songs with no audio, and return the rest.
     return axios.all(songTracks)
-    .then(() => {
-      console.log('song tracks: ', songTracks);
-      return songTracks;
+    .then(response => {
+      return response.filter(song => {
+        return song;
+      })
+      // console.log('Promise all: ', newResults);
     })
   }
 
-  getSongTrack(token) {
-    return axios({
-      method: 'get',
-      url: `https://api.spotify.com/v1/tracks/7eJMfftS33KTjuF7lTsMCx?market=US`,
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then( response => {
-      // console.log('track name: ' + response.data.name);
-      // console.log('track preview_url' + response.data.preview_url);
+  // getSongTrack(token) {
+  //   return axios({
+  //     method: 'get',
+  //     url: `https://api.spotify.com/v1/tracks/7eJMfftS33KTjuF7lTsMCx?market=US`,
+  //     headers: {
+  //       'Authorization': `Bearer ${token}`,
+  //       'Content-Type': 'application/json'
+  //     }
+  //   })
+  //   .then( response => {
+  //     // console.log('track name: ' + response.data.name);
+  //     // console.log('track preview_url' + response.data.preview_url);
        
-      // prepare the artist names
-       let artists = response.data.album.artists.map( elem => {
-         return elem.name
-       });
+  //     // prepare the artist names
+  //      let artists = response.data.album.artists.map( elem => {
+  //        return elem.name
+  //      });
 
-      this.setState({ 
-        items: {
-          name: response.data.name,
-          artists: artists.join(', '),
-          album_image: response.data.album.images[1].url,
-          song_audio: new Audio(response.data.preview_url),
-        }
-      });
-    })
-    .catch( err => console.log(err));
-  }
+  //     this.setState({ 
+  //       items: {
+  //         name: response.data.name,
+  //         artists: artists.join(', '),
+  //         album_image: response.data.album.images[1].url,
+  //         song_audio: new Audio(response.data.preview_url),
+  //       }
+  //     });
+  //   })
+  //   .catch( err => console.log(err));
+  // }
 
   audioControl() {
     console.log('audioControl', this.state.items.song_audio);
