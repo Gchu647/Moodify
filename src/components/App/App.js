@@ -24,7 +24,7 @@ class App extends Component {
     this.getToken = this.getToken.bind(this);
     this.getBillboardSongId = this.getBillboardSongId.bind(this);
     this.getAllSongTracks = this.getAllSongTracks.bind(this);
-    this.getSongTrack = this.getSongTrack.bind(this);
+    // this.getSongTrack = this.getSongTrack.bind(this);
     this.audioControl = this.audioControl.bind(this);
   }
 
