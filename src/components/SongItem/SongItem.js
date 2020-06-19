@@ -19,7 +19,7 @@ const SongItem = props => {
 
   return (
     <div className='song-container'>
-      {console.log(songName, albumImage, 'hi')}
+      {console.log(songName, albumImage)}
       <div className='album-image' style={sectionStyle}>
 		    <div className='song-score-container'>
 			    <p className='song-score'> 85</p>

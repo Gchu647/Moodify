@@ -12,12 +12,12 @@ class App extends Component {
 
     this.state = {
       token: null,
-      items: {
+      items: [{
         name: null,
         artists: null,
         album_image: null,
         song_audio: null,
-      },
+      }],
       songPlaying: false,
     }
 
@@ -26,6 +26,7 @@ class App extends Component {
     this.getAllSongTracks = this.getAllSongTracks.bind(this);
     // this.getSongTrack = this.getSongTrack.bind(this);
     this.audioControl = this.audioControl.bind(this);
+    this.showState = this.showState.bind(this);
   }
 
   async componentDidMount() {
@@ -35,8 +36,13 @@ class App extends Component {
     const songIdList = await this.getBillboardSongId(_token);
     const songTracks = this.getAllSongTracks(_token, songIdList);
     console.log('song tracks: ', songTracks);
-    
+
+    this.setState({ items: songTracks});
     // await this.getSongTrack(_token);// get track
+  }
+
+  showState() {
+    console.log(this.state.items);
   }
 
   getToken () {
@@ -121,36 +127,6 @@ class App extends Component {
     })
   }
 
-  // getSongTrack(token) {
-  //   return axios({
-  //     method: 'get',
-  //     url: `https://api.spotify.com/v1/tracks/7eJMfftS33KTjuF7lTsMCx?market=US`,
-  //     headers: {
-  //       'Authorization': `Bearer ${token}`,
-  //       'Content-Type': 'application/json'
-  //     }
-  //   })
-  //   .then( response => {
-  //     // console.log('track name: ' + response.data.name);
-  //     // console.log('track preview_url' + response.data.preview_url);
-       
-  //     // prepare the artist names
-  //      let artists = response.data.album.artists.map( elem => {
-  //        return elem.name
-  //      });
-
-  //     this.setState({ 
-  //       items: {
-  //         name: response.data.name,
-  //         artists: artists.join(', '),
-  //         album_image: response.data.album.images[1].url,
-  //         song_audio: new Audio(response.data.preview_url),
-  //       }
-  //     });
-  //   })
-  //   .catch( err => console.log(err));
-  // }
-
   audioControl() {
     console.log('audioControl', this.state.items.song_audio);
 
@@ -167,6 +143,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <button onClick={this.showState}>Show State</button>
+        <br/>
         <SongItem 
           songName={this.state.items.name}
           artists={this.state.items.artists}
