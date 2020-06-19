@@ -2,14 +2,14 @@ import React from "react";
 import "./BillboardSongs.css";
 import SongItem from '../SongItem/SongItem';
 
-const BillboardSongs = props => {
+const BillboardSongs = ({songTracks})=> {
 
   return (
     <div className='BillboardSongs'>
-      {console.log('BillboardSongs: ', props.songTracks)}
-      {props.songTracks.map( item => {
+      {console.log('BillboardSongs: ', songTracks)}
+      {songTracks.map( song => {
         return (
-          <p>{'"'+item.name + '" by ' + item.artists}</p>
+          <p>{'"'+song.name + '" by ' + song.artists}</p>
         )
       })}
     </div>
