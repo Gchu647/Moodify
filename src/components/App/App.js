@@ -18,13 +18,11 @@ class App extends Component {
         album_image: null,
         song_audio: null,
       }],
-      songPlaying: false,
     };
 
     this.getToken = this.getToken.bind(this);
     this.getBillboardSongId = this.getBillboardSongId.bind(this);
     this.getAllSongTracks = this.getAllSongTracks.bind(this);
-    this.audioControl = this.audioControl.bind(this);
     this.showState = this.showState.bind(this);
   }
 
@@ -123,19 +121,6 @@ class App extends Component {
         return song;
       })
     })
-  }
-
-  audioControl() {
-    console.log('audioControl', this.state.items.song_audio);
-
-    if(!this.state.songPlaying && this.state.items.song_audio) { // if song is not playing and song_audio is not falsy
-      this.state.items.song_audio.play(); // play song
-      this.setState({songPlaying: true});
-    } else {
-      this.state.items.song_audio.pause(); // pause song
-      this.setState({songPlaying: false});
-    }
-    
   }
 
   render() {
