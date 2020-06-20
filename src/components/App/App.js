@@ -19,7 +19,7 @@ class App extends Component {
         song_audio: null,
       }],
       songPlaying: false,
-    }
+    };
 
     this.getToken = this.getToken.bind(this);
     this.getBillboardSongId = this.getBillboardSongId.bind(this);

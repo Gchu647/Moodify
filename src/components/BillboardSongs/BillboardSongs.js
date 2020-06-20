@@ -5,12 +5,16 @@ import SongItem from '../SongItem/SongItem';
 class BillboardSongs extends Component {
   constructor(props) {
     super(props);
+    
+    this.state = {
+      audioPlaying: null,
+    };
 
     this.audioControl = this.audioControl.bind(this);
   }
 
   audioControl() {
-    console.log('new audio control!')
+    console.log('new audio control!');
   }
 
   render() {
