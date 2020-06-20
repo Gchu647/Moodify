@@ -12,6 +12,7 @@ const BillboardSongs = ({songTracks, audioControl})=> {
           // <p>{'"'+song.name + '" by ' + song.artists}</p>
           <SongItem 
             songName={song.name}
+            songAudio={song.song_audio}
             artists={song.artists}
             albumImage={song.album_image}
             audioControl={audioControl}

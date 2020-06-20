@@ -105,7 +105,7 @@ class App extends Component {
             name: response.data.name,
             artists: artists.join(', '),
             album_image: response.data.album.images[1].url,
-            song_audio: new Audio(response.data.preview_url),
+            song_audio: response.data.preview_url, //Notes: turn into ino new Audio later
            }
   
           //  console.log('songItem', songItem);
@@ -148,12 +148,6 @@ class App extends Component {
           songTracks={this.state.items}
           audioControl={this.audioControl}
         />
-        {/* <SongItem 
-          songName={this.state.items.name}
-          artists={this.state.items.artists}
-          albumImage={this.state.items.album_image}
-          audioControl={this.audioControl}
-        /> */}
       </div>
     );
   }
