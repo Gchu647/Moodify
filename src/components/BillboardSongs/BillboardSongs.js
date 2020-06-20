@@ -13,8 +13,8 @@ class BillboardSongs extends Component {
     this.audioControl = this.audioControl.bind(this);
   }
 
-  audioControl() {
-    console.log('new audio control!');
+  audioControl(audio) {
+    console.log('new audio control!', audio);
   }
 
   render() {

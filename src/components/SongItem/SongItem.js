@@ -34,7 +34,10 @@ const SongItem = props => {
           <p className='song-artists'>{artists}</p>
         </div>
         <div className='song-container-bottom-right'>
-          <PlayButton audioControl={audioControl} />
+          <PlayButton 
+            audioControl={audioControl} 
+            songAudio={songAudio}
+          />
         </div>
       </div>
     </div>
