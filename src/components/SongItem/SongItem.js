@@ -1,5 +1,6 @@
 import React from 'react';
-import './SongItem.css'
+import './SongItem.css';
+import PlayButton from '../PlayButton/PlayButton';
 
 const SongItem = props => {
   const {
@@ -33,7 +34,7 @@ const SongItem = props => {
           <p className='song-artists'>{artists}</p>
         </div>
         <div className='song-container-bottom-right'>
-          <i class="fa fa-play-circle" aria-hidden="true" onClick={audioControl}></i>
+          <PlayButton audioControl={audioControl} />
         </div>
       </div>
     </div>
