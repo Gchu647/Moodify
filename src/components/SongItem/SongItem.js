@@ -21,7 +21,7 @@ const SongItem = props => {
 
   return (
     <div className='song-container'>
-      {console.log('songItem: ', songName, albumImage, songAudio)}
+      {/* {console.log('songItem: ', songName, albumImage, songAudio)} */}
       <div className='album-image' style={sectionStyle}>
 		    <div className='song-score-container'>
 			    <p className='song-score'> 85</p>
@@ -37,6 +37,7 @@ const SongItem = props => {
           <PlayButton 
             audioControl={audioControl} 
             songAudio={songAudio}
+            songName={songName} // TESTING
           />
         </div>
       </div>

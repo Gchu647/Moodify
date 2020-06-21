@@ -7,30 +7,32 @@ class BillboardSongs extends Component {
     super(props);
     
     this.state = {
-      audioPlaying: null,
-      songPlaying: false,
+      currAudio: null,
+      isPlaying: false,
     };
 
     this.audioControl = this.audioControl.bind(this);
   }
 
-  audioControl(audioLink) {
-    console.log('new audio control!', audioLink);
+  audioControl(audioLink, songName) {
+    console.log(songName + ': ' + audioLink);
+    console.log(songName + ': ' + this.state.isPlaying);
+
     const currAudio = new Audio(audioLink);
 
-    if(!this.state.songPlaying && audioLink) { // if song is not playing and audioLink is not falsy
+    if(!this.state.isPlaying && audioLink) { // if song is not playing and audioLink is not falsy
+      console.log('playing')
       currAudio.play(); // play song
-      this.setState({songPlaying: true});
+      this.setState({isPlaying: true});
     } else {
       currAudio.pause(); // pause song
-      this.setState({songPlaying: false});
+      this.setState({isPlaying: false});
     }
   }
 
   render() {
     return (
       <div className='BillboardSongs'>
-        {console.log('BillboardSongs: ', this.props.songTracks)}
         {this.props.songTracks.map( song => {
           return (
             // <p>{'"'+song.name + '" by ' + song.artists}</p>
