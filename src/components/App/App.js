@@ -23,7 +23,6 @@ class App extends Component {
     this.getToken = this.getToken.bind(this);
     this.getBillboardSongId = this.getBillboardSongId.bind(this);
     this.getAllSongTracks = this.getAllSongTracks.bind(this);
-    this.showState = this.showState.bind(this);
   }
 
   async componentDidMount() {
@@ -36,10 +35,6 @@ class App extends Component {
 
     this.setState({ items: songTracks});
     // await this.getSongTrack(_token);// get track
-  }
-
-  showState() {
-    console.log(this.state.items);
   }
 
   getToken () {
@@ -126,8 +121,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <button onClick={this.showState}>Show State</button>
-        <br/>
         <BillboardSongs 
           songTracks={this.state.items}
         />
