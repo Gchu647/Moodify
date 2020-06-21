@@ -20,14 +20,16 @@ class BillboardSongs extends Component {
         currAudio: new Audio(audioLink),
         isPlaying: true
       }, () =>{
-        console.log(songName + ': ' + this.state.currAudio.currentSrc);
-        console.log(songName + ': ' + this.state.isPlaying);
-        console.log('condtion 1: playing');
+        console.log(songName + 'is playing ' + this.state.isPlaying);
         
         this.state.currAudio.play(); // play song
       });
-    } else {
-      console.log(songName + ': ' + typeof this.state.currAudio.currentSrc);
+    } else if(this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) {
+      // console.log(songName + ': ' + typeof this.state.currAudio.currentSrc);
+      console.log(songName + 'is paused' + this.state.isPlaying);
+
+      this.state.currAudio.pause(); // pause song
+      this.setState({isPlaying: false});
     }
   }
 

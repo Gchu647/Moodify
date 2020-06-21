@@ -4,12 +4,12 @@ function audioControl(audioLink, songName) {
     currAudio.play()
   */
 
-  /*condition 2 press again: currAudio = songAudio1, but audioLink===songAudio1.currentSrc ,isPlaying = true
+  /*condition 2 press same song: currAudio.src === audioLink, isPlaying = true
     currAudio.pause()
     setState(isPlaying = false)
   */
 
-  /*condition 3 press different song: currAudio = songAudio1, but audioLink===songAudio2.currentSrc, isPlaying = true 
+  /*condition 3 press different song: currAudio.src != audioLink, isPlaying = true 
     currAudio.pause()
     setState(currAudio: songAudio2)
   */
