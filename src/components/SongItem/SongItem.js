@@ -8,7 +8,8 @@ const SongItem = props => {
     songAudio,
     artists, 
     albumImage, 
-    audioControl
+    audioControl,
+    currAudio
   } = props;
   
   let sectionStyle = {

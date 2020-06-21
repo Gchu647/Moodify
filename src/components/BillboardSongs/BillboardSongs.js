@@ -15,19 +15,20 @@ class BillboardSongs extends Component {
   }
 
   audioControl(audioLink, songName) {
-    console.log(songName + ': ' + audioLink);
-    console.log(songName + ': ' + this.state.isPlaying);
-
-    const currAudio = new Audio(audioLink);
-
-    if(!this.state.isPlaying && audioLink) { // if song is not playing and audioLink is not falsy
-      console.log('playing')
-      currAudio.play(); // play song
-      this.setState({isPlaying: true});
-    } else {
-      currAudio.pause(); // pause song
-      this.setState({isPlaying: false});
-    }
+    this.setState({currAudio: new Audio(audioLink)}, () =>{
+      console.log(songName + ': ' + this.state.currAudio);
+      console.log(songName + ': ' + this.state.isPlaying);
+  
+      if(!this.state.isPlaying && this.state.currAudio) { // if song is not playing and audioLink is not falsy
+        console.log('playing');
+        this.state.currAudio.play(); // play song
+        this.setState({isPlaying: true});
+      } else {
+        console.log('pause');
+        this.state.currAudio.pause(); // pause song
+        this.setState({isPlaying: false});
+      }
+    });
   }
 
   render() {
