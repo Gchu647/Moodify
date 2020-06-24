@@ -51,6 +51,7 @@ class BillboardSongs extends Component {
               songAudio={song.song_audio}
               artists={song.artists}
               albumImage={song.album_image}
+              moodScore={song.moodScore}
               audioControl={this.audioControl}
             />
           )
