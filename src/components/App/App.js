@@ -17,12 +17,14 @@ class App extends Component {
         artists: null,
         album_image: null,
         song_audio: null,
+        id: null
       }],
     };
 
     this.getToken = this.getToken.bind(this);
     this.getBillboardSongId = this.getBillboardSongId.bind(this);
     this.getAllSongTracks = this.getAllSongTracks.bind(this);
+    this.getValence = this.getValence.bind(this);
   }
 
   async componentDidMount() {
@@ -32,6 +34,8 @@ class App extends Component {
     const songIdList = await this.getBillboardSongId(_token);
     const songTracks = await this.getAllSongTracks(_token, songIdList);
     console.log('song tracks: ', songTracks);
+
+    await this.getValence(_token, songTracks);
 
     this.setState({ items: songTracks});
     // await this.getSongTrack(_token);// get track
@@ -98,6 +102,7 @@ class App extends Component {
             artists: artists.join(', '),
             album_image: response.data.album.images[1].url,
             song_audio: response.data.preview_url, //Notes: turn into ino new Audio later
+            id: songId
            }
   
           //  console.log('songItem', songItem);
@@ -115,6 +120,33 @@ class App extends Component {
       return response.filter(song => {
         return song;
       })
+    })
+  }
+
+  getValence(token, songs) {
+    console.log('getValence');
+    let requestFeatures = songs.map(songTrack => {
+      console.log('requestFeatures: ', songTrack);
+      return axios({
+        method: 'get',
+        url: `https://api.spotify.com/v1/audio-features/${songTrack.id}`,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then( features => {
+        let moodScore = Math.round(features.data.valence * 100);
+        console.log('feature data: ' + moodScore)
+        songTrack.features = features.data; // adding features to the songs objects
+      })
+      .catch( err => console.log(err));
+    })
+
+    // Wait for all axios requests to process first, and then return songs with features.
+    return axios.all(requestFeatures)
+    .then(() => {
+      return songs;
     })
   }
 
