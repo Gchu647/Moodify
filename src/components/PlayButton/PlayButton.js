@@ -13,7 +13,7 @@ class PlayButton extends Component {
 
 
   render() {
-    return(<i class="fa fa-play-circle" aria-hidden="true" onClick={this.handleClick}></i>);
+    return(<i className="fa fa-play-circle" aria-hidden="true" onClick={this.handleClick}></i>);
   }
 }
 

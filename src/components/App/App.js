@@ -17,6 +17,7 @@ class App extends Component {
         artists: null,
         album_image: null,
         song_audio: null,
+        moodScore: null,
         id: null
       }],
     };
@@ -24,7 +25,7 @@ class App extends Component {
     this.getToken = this.getToken.bind(this);
     this.getBillboardSongId = this.getBillboardSongId.bind(this);
     this.getAllSongTracks = this.getAllSongTracks.bind(this);
-    this.getValence = this.getValence.bind(this);
+    this.getMoodScore = this.getMoodScore.bind(this);
   }
 
   async componentDidMount() {
@@ -33,12 +34,10 @@ class App extends Component {
     // Requst for Billboard Playst and use for loop to get Get track.name and track.id and put it in an object.
     const songIdList = await this.getBillboardSongId(_token);
     const songTracks = await this.getAllSongTracks(_token, songIdList);
-    console.log('song tracks: ', songTracks);
+    const songsWithMood = await this.getMoodScore(_token, songTracks);
+    console.log('songs with mood: ', songsWithMood);
 
-    await this.getValence(_token, songTracks);
-
-    this.setState({ items: songTracks});
-    // await this.getSongTrack(_token);// get track
+    this.setState({ items: songsWithMood});
   }
 
   getToken () {
@@ -123,7 +122,7 @@ class App extends Component {
     })
   }
 
-  getValence(token, songs) {
+  getMoodScore(token, songs) {
     console.log('getValence');
     let requestFeatures = songs.map(songTrack => {
       console.log('requestFeatures: ', songTrack);
@@ -138,7 +137,7 @@ class App extends Component {
       .then( features => {
         let moodScore = Math.round(features.data.valence * 100);
         console.log('feature data: ' + moodScore)
-        songTrack.features = features.data; // adding features to the songs objects
+        songTrack.moodScore = moodScore; // adding features to the songs objects
       })
       .catch( err => console.log(err));
     })
