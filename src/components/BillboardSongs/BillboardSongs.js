@@ -15,7 +15,7 @@ class BillboardSongs extends Component {
   }
 
   audioControl(audioLink, songName) {
-    if (!this.state.currAudio && !this.state.isPlaying) {
+    if (!this.state.isPlaying) { // condition 1: when no song is playing
       this.setState({
         currAudio: new Audio(audioLink),
         isPlaying: true
@@ -24,13 +24,13 @@ class BillboardSongs extends Component {
         
         this.state.currAudio.play(); // play song
       });
-    } else if (this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) {
+    } else if (this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) { // condition 2: stop when press the same song
       // console.log(songName + ': ' + typeof this.state.currAudio.currentSrc);
       console.log(songName + 'is paused' + this.state.isPlaying);
 
       this.state.currAudio.pause(); // pause song
       this.setState({isPlaying: false});
-    } else if (this.state.currAudio.currentSrc != audioLink && this.state.isPlaying) {
+    } else if (this.state.currAudio.currentSrc != audioLink && this.state.isPlaying) { // condition 3: switch to a new song
       console.log(songName + 'is a new song' + this.state.isPlaying);
 
       this.state.currAudio.pause();
