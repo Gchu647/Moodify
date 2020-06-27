@@ -12,6 +12,7 @@ class BillboardSongs extends Component {
     };
 
     this.audioControl = this.audioControl.bind(this);
+    this.ascendSongs = this.ascendSongs.bind(this);
   }
 
   audioControl(audioLink, songName) {
@@ -40,9 +41,15 @@ class BillboardSongs extends Component {
     }
   }
 
+  ascendSongs() {
+    console.log('ascend songs: ' + this.props.songTracks);
+  }
+
   render() {
     return (
       <div className='BillboardSongs'>
+        <button onClick={this.ascendSongs}>Sort Songs</button>
+        <br/>
         {this.props.songTracks.map( song => {
           return (
             // <p>{'"'+song.name + '" by ' + song.artists}</p>

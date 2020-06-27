@@ -35,7 +35,7 @@ class App extends Component {
     const songIdList = await this.getBillboardSongId(_token);
     const songTracks = await this.getAllSongTracks(_token, songIdList);
     const songsWithMood = await this.getMoodScore(_token, songTracks);
-    console.log('songs with mood: ', songsWithMood);
+    // console.log('songs with mood: ', songsWithMood);
 
     this.setState({ items: songsWithMood});
   }
@@ -125,7 +125,6 @@ class App extends Component {
   getMoodScore(token, songs) {
     console.log('getValence');
     let requestFeatures = songs.map(songTrack => {
-      console.log('requestFeatures: ', songTrack);
       return axios({
         method: 'get',
         url: `https://api.spotify.com/v1/audio-features/${songTrack.id}`,
@@ -136,7 +135,6 @@ class App extends Component {
       })
       .then( features => {
         let moodScore = Math.round(features.data.valence * 100);
-        console.log(songTrack.name + ' ' + moodScore)
         songTrack.moodScore = moodScore; // adding features to the songs objects
       })
       .catch( err => console.log(err));
