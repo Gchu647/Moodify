@@ -10,6 +10,7 @@ config.js
 
 # testing
 /coverage
+test.js
 
 # production
 /build
