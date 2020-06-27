@@ -43,6 +43,9 @@ class BillboardSongs extends Component {
 
   ascendSongs() {
     console.log('ascend songs: ' + this.props.songTracks);
+    this.props.songTracks.sort((songA, songB) => {
+      return songA.moodScore - songB.moodScore
+    });
   }
 
   render() {
@@ -50,7 +53,12 @@ class BillboardSongs extends Component {
       <div className='BillboardSongs'>
         <button onClick={this.ascendSongs}>Sort Songs</button>
         <br/>
-        {this.props.songTracks.map( song => {
+        {this.props.songTracks
+        .sort((songA, songB) => {
+          return songA.moodScore - songB.moodScore
+        })
+        .map( song => {
+          console.log('Billboard ' + song.name);
           return (
             // <p>{'"'+song.name + '" by ' + song.artists}</p>
             <SongItem 
@@ -62,7 +70,8 @@ class BillboardSongs extends Component {
               audioControl={this.audioControl}
             />
           )
-        })}
+        })
+        .reverse()}
       </div>
     )
   }
