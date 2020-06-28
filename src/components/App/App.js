@@ -5,6 +5,7 @@ import { headers, data } from '../../config';
 import logo from '../../logo.svg';
 import './App.css';
 import BillboardSongs from '../BillboardSongs/BillboardSongs';
+import VerticalSlider from '../VerticalSlider/VerticalSlider'
 
 class App extends Component {
   constructor() {
@@ -161,14 +162,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div clasName='sort-btns-container'>
-          <button onClick={this.happySort}>Happy</button>
-          <button onClick={this.sadSort}>Sad</button>
+        <div className='left-side-section'>
+          <VerticalSlider/>
         </div>
-        <BillboardSongs 
-          songTracks={this.state.items}
-          sortOption={this.state.sortOption}
-        />
+        <div clasName='main-section'>
+          <div clasName='sort-btns-container'>
+            <button onClick={this.happySort}>Happy</button>
+            <button onClick={this.sadSort}>Sad</button>
+          </div>
+          <BillboardSongs 
+            songTracks={this.state.items}
+            sortOption={this.state.sortOption}
+          />
+        </div>
       </div>
     );
   }

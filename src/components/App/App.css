@@ -1,6 +1,11 @@
 .App {
   /* text-align: center; */
   min-height: 100vh;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.main-section {
   padding: 30px;
   background-color: #131313;
 }
