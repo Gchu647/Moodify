@@ -20,12 +20,15 @@ class App extends Component {
         moodScore: null,
         id: null
       }],
+      sortOption: 'happy',
     };
 
     this.getToken = this.getToken.bind(this);
     this.getBillboardSongId = this.getBillboardSongId.bind(this);
     this.getAllSongTracks = this.getAllSongTracks.bind(this);
     this.getMoodScore = this.getMoodScore.bind(this);
+    this.happySort = this.happySort.bind(this);
+    this.sadSort = this.sadSort.bind(this);
   }
 
   async componentDidMount() {
@@ -147,11 +150,24 @@ class App extends Component {
     })
   }
 
+  happySort() {
+    this.setState({sortOption: 'happy'});
+  }
+
+  sadSort() {
+    this.setState({sortOption: 'sad'});
+  }
+
   render() {
     return (
       <div className="App">
+        <div clasName='sort-btns-container'>
+          <button onClick={this.happySort}>Happy</button>
+          <button onClick={this.sadSort}>Sad</button>
+        </div>
         <BillboardSongs 
           songTracks={this.state.items}
+          sortOption={this.state.sortOption}
         />
       </div>
     );

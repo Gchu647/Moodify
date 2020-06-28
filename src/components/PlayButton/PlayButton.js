@@ -11,7 +11,6 @@ class PlayButton extends Component {
     this.props.audioControl(this.props.songAudio, this.props.songName);
   }
 
-
   render() {
     return(<i className="fa fa-play-circle" aria-hidden="true" onClick={this.handleClick}></i>);
   }

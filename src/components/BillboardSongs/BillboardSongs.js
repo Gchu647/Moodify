@@ -79,7 +79,7 @@ class BillboardSongs extends Component {
 
   render() {
     return (
-      this.sortedSongItems('sad')
+      this.sortedSongItems(this.props.sortOption)
     )
   }
 }
