@@ -6,9 +6,14 @@ import { RangeSlider } from 'rsuite';
 const VerticalSlider = () => {
   return (
     <div className='slider-container'>
-      <RangeSlider 
+      <RangeSlider
         className='mood-score-slider' 
-        defaultValue={[10, 50]} 
+        min={0}
+        step={10}
+        max={100}
+        defaultValue={[10, 50]}
+        vertical
+        graduated
         onChange={value => {
           console.log('range ', value);
         }}
