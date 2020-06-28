@@ -1,0 +1,11 @@
+.mood-score-slider {
+  margin: 80px 20px 40px 20px;
+}
+
+.mood-score-slider .rs-slider-progress-bar {
+  background-color: #1db954;
+}
+
+.mood-score-slider .rs-slider-handle::before {
+  border-color: #1db954;
+}

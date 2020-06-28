@@ -1,15 +1,18 @@
 import React from 'react';
 import 'rsuite/dist/styles/rsuite-default.css';
-import { Button } from 'rsuite';
+import './VerticalSlider.css';
+import { RangeSlider } from 'rsuite';
 
 const VerticalSlider = () => {
-  const style = {
-    height: 400
-  };
-
   return (
-    <div>
-      <Button appearance="primary"> Smoke Test Rsuite</Button>
+    <div className='slider-container'>
+      <RangeSlider 
+        className='mood-score-slider' 
+        defaultValue={[10, 50]} 
+        onChange={value => {
+          console.log('range ', value);
+        }}
+      />
     </div>
   );
 };

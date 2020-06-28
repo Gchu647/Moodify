@@ -3,9 +3,9 @@
   min-height: 100vh;
   display: flex;
   flex-flow: row nowrap;
+  background-color: #131313;
 }
 
 .main-section {
   padding: 30px;
-  background-color: #131313;
 }
