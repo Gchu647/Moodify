@@ -42,49 +42,36 @@ class BillboardSongs extends Component {
   }
 
   sortedSongItems(sortOption) {
-    if(sortOption === 'happy') { // sort song from high moodScore to low
+    let ascendSongs = ( // sort songs from low moodScore to high
+      this.props.songTracks
+      .sort((songA, songB) => {
+        return songA.moodScore - songB.moodScore
+      })
+      .map( song => {
+        console.log('Billboard ' + song.name);
+        return (
+          <SongItem 
+            songName={song.name}
+            songAudio={song.song_audio}
+            artists={song.artists}
+            albumImage={song.album_image}
+            moodScore={song.moodScore}
+            audioControl={this.audioControl}
+          />
+        )
+      })
+    );
+
+    if(sortOption === 'happy') { // reverse the order to descend if 'happy'
       return (
         <div className='BillboardSongs'>
-          {this.props.songTracks
-          .sort((songA, songB) => {
-            return songA.moodScore - songB.moodScore
-          })
-          .map( song => {
-            console.log('Billboard ' + song.name);
-            return (
-              <SongItem 
-                songName={song.name}
-                songAudio={song.song_audio}
-                artists={song.artists}
-                albumImage={song.album_image}
-                moodScore={song.moodScore}
-                audioControl={this.audioControl}
-              />
-            )
-          })
-          .reverse()}
+          {ascendSongs.reverse()}
         </div>
       )
-    } else if (sortOption === 'sad') { // sort songs from low moodScore to high
+    } else if (sortOption === 'sad') { // just return ascendSongs if 'sad'
       return (
         <div className='BillboardSongs'>
-          {this.props.songTracks
-          .sort((songA, songB) => {
-            return songA.moodScore - songB.moodScore
-          })
-          .map( song => {
-            console.log('Billboard ' + song.name);
-            return (
-              <SongItem 
-                songName={song.name}
-                songAudio={song.song_audio}
-                artists={song.artists}
-                albumImage={song.album_image}
-                moodScore={song.moodScore}
-                audioControl={this.audioControl}
-              />
-            )
-          })}
+          {ascendSongs}
         </div>
       )
     }
@@ -92,7 +79,7 @@ class BillboardSongs extends Component {
 
   render() {
     return (
-      this.sortedSongItems('happy')
+      this.sortedSongItems('sad')
     )
   }
 }
