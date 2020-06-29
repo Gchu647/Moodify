@@ -5,7 +5,8 @@ import { headers, data } from '../../config';
 import logo from '../../logo.svg';
 import './App.css';
 import BillboardSongs from '../BillboardSongs/BillboardSongs';
-import VerticalSlider from '../VerticalSlider/VerticalSlider'
+import VerticalSlider from '../VerticalSlider/VerticalSlider';
+import MoodButtonGroup from '../MoodButtonGroup/MoodButtonGroup';
 
 class App extends Component {
   constructor() {
@@ -163,6 +164,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className='left-side-section'>
+          <MoodButtonGroup appearance='subtle' color='green'/>
           <VerticalSlider/>
         </div>
         <div className='main-section'>
