@@ -164,14 +164,15 @@ class App extends Component {
     return (
       <div className="App">
         <div className='left-side-section'>
-          <MoodButtonGroup appearance='subtle' color='green'/>
+          <MoodButtonGroup 
+            appearance='subtle' 
+            color='green'
+            happySort={this.happySort}
+            sadSort={this.sadSort}
+          />
           <VerticalSlider/>
         </div>
         <div className='main-section'>
-          <div className='sort-btns-container'>
-            <button onClick={this.happySort}>Happy</button>
-            <button onClick={this.sadSort}>Sad</button>
-          </div>
           <BillboardSongs 
             songTracks={this.state.items}
             sortOption={this.state.sortOption}
