@@ -17,6 +17,9 @@ const VerticalSlider = () => {
         onChange={value => {
           console.log('range ', value);
         }}
+        renderMark={mark => {
+          return <span>{mark}</span>;
+        }}
       />
     </div>
   );
