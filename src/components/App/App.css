@@ -7,11 +7,12 @@
 }
 
 .left-side-section {
+  width: 10%;
   background-color: #92a3f8;
 }
 
 .main-section {
-  height: 100px;;
+  width: 90%;
   padding: 30px;
   background-color: #f5f5f5;
 }

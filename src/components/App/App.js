@@ -165,8 +165,8 @@ class App extends Component {
         <div className='left-side-section'>
           <VerticalSlider/>
         </div>
-        <div clasName='main-section'>
-          <div clasName='sort-btns-container'>
+        <div className='main-section'>
+          <div className='sort-btns-container'>
             <button onClick={this.happySort}>Happy</button>
             <button onClick={this.sadSort}>Sad</button>
           </div>
