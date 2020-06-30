@@ -3,7 +3,7 @@ import 'rsuite/dist/styles/rsuite-default.css';
 import './VerticalSlider.css';
 import { RangeSlider } from 'rsuite';
 
-const VerticalSlider = () => {
+const VerticalSlider = ({ setMoodRange }) => {
   return (
     <div className='slider-container'>
       <RangeSlider
@@ -11,11 +11,12 @@ const VerticalSlider = () => {
         min={0}
         step={10}
         max={100}
-        defaultValue={[10, 50]}
+        defaultValue={[0, 100]}
         vertical
         graduated
-        onChange={value => {
-          console.log('range ', value);
+        onChange={arr => {
+          // console.log('range ', arr);
+          setMoodRange(arr);
         }}
         renderMark={mark => {
           return <span>{mark}</span>;

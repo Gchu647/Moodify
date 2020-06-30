@@ -42,9 +42,7 @@ class BillboardSongs extends Component {
     }
   }
 
-  songTrackRange(moodRange) { // filters out the song tracks based on moodScore
-    // console.log('songTrackRange 1: ',this.props.songTracks);
-    
+  songTrackRange(moodRange) { // filters out the song tracks based on moodScore    
     const filteredSongs = (
       this.props.songTracks
       .filter(song => {
@@ -57,8 +55,6 @@ class BillboardSongs extends Component {
   }
 
   sortSongItems(sortOption) {
-    // add the range of the song here before ascending the songTracks.
-
     const filteredSongs = this.songTrackRange([50, 100]);
 
     let ascendSongs = ( // sort songs from low moodScore to high

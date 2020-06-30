@@ -23,6 +23,7 @@ class App extends Component {
         id: null
       }],
       sortOption: 'happy',
+      moodRange: null,
     };
 
     this.getToken = this.getToken.bind(this);
@@ -31,6 +32,7 @@ class App extends Component {
     this.getMoodScore = this.getMoodScore.bind(this);
     this.happySort = this.happySort.bind(this);
     this.sadSort = this.sadSort.bind(this);
+    this.setMoodRange = this.setMoodRange.bind(this);
   }
 
   async componentDidMount() {
@@ -152,12 +154,17 @@ class App extends Component {
     })
   }
 
-  happySort() {
+  happySort() { // label sortOption for sorting in BllboardSongs
     this.setState({sortOption: 'happy'});
   }
 
-  sadSort() {
+  sadSort() { // label sortOption for sorting in BllboardSongs
     this.setState({sortOption: 'sad'});
+  }
+
+  setMoodRange(arr) { 
+    console.log('setMoodRange: ', arr);
+    this.setState({moodRange: arr});
   }
 
   render() {
@@ -170,7 +177,9 @@ class App extends Component {
             happySort={this.happySort}
             sadSort={this.sadSort}
           />
-          <VerticalSlider/>
+          <VerticalSlider
+            setMoodRange={this.setMoodRange}
+          />
         </div>
         <div className='main-section'>
           <BillboardSongs 
