@@ -12,7 +12,7 @@ class BillboardSongs extends Component {
     };
 
     this.audioControl = this.audioControl.bind(this);
-    this.sortedSongItems = this.sortedSongItems.bind(this);
+    this.sortSongItems = this.sortSongItems.bind(this);
   }
 
   audioControl(audioLink, songName) {
@@ -41,14 +41,16 @@ class BillboardSongs extends Component {
     }
   }
 
-  sortedSongItems(sortOption) {
+  sortSongItems(sortOption) {
+    console.log(this.props.songTracks); // this is where I will add an range in array to the songs?
+
     let ascendSongs = ( // sort songs from low moodScore to high
       this.props.songTracks
       .sort((songA, songB) => {
         return songA.moodScore - songB.moodScore
       })
       .map( song => {
-        console.log('Billboard ' + song.name);
+        // console.log('Billboard ' + song.name);
         return (
           <SongItem 
             songName={song.name}
@@ -79,7 +81,7 @@ class BillboardSongs extends Component {
 
   render() {
     return (
-      this.sortedSongItems(this.props.sortOption)
+      this.sortSongItems(this.props.sortOption)
     )
   }
 }
