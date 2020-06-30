@@ -55,7 +55,7 @@ class BillboardSongs extends Component {
   }
 
   sortSongItems(sortOption) {
-    const filteredSongs = this.songTrackRange([50, 100]);
+    const filteredSongs = this.songTrackRange(this.props.moodRange);
 
     let ascendSongs = ( // sort songs from low moodScore to high
       filteredSongs

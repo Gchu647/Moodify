@@ -23,7 +23,7 @@ class App extends Component {
         id: null
       }],
       sortOption: 'happy',
-      moodRange: null,
+      moodRange: [0, 100],
     };
 
     this.getToken = this.getToken.bind(this);
@@ -163,7 +163,6 @@ class App extends Component {
   }
 
   setMoodRange(arr) { 
-    console.log('setMoodRange: ', arr);
     this.setState({moodRange: arr});
   }
 
@@ -185,6 +184,7 @@ class App extends Component {
           <BillboardSongs 
             songTracks={this.state.items}
             sortOption={this.state.sortOption}
+            moodRange={this.state.moodRange}
           />
         </div>
       </div>

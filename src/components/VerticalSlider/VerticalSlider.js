@@ -15,7 +15,6 @@ const VerticalSlider = ({ setMoodRange }) => {
         vertical
         graduated
         onChange={arr => {
-          // console.log('range ', arr);
           setMoodRange(arr);
         }}
         renderMark={mark => {
