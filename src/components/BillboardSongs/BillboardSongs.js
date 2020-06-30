@@ -42,12 +42,23 @@ class BillboardSongs extends Component {
     }
   }
 
-  songTrackRange() {
-    console.log(this.props.songTracks);
+  songTrackRange() { // filters out the song tracks based on moodScore
+    // console.log('songTrackRange 1: ',this.props.songTracks);
+    const moodRange = [50, 100];
+    
+    const filteredSongs = (
+      this.props.songTracks
+      .filter(song => {
+        return (song.moodScore >= moodRange[0] && song.moodScore <= moodRange[1])
+      })
+    );
+
+    console.log('songTrackRange 2: ', filteredSongs);
+    return filteredSongs;
   }
 
   sortSongItems(sortOption) {
-    // add the range of the song before ascending the songTracks.
+    // add the range of the song here before ascending the songTracks.
 
     let ascendSongs = ( // sort songs from low moodScore to high
       this.props.songTracks
