@@ -12,6 +12,7 @@ class BillboardSongs extends Component {
     };
 
     this.audioControl = this.audioControl.bind(this);
+    this.songTrackRange = this.songTrackRange.bind(this);
     this.sortSongItems = this.sortSongItems.bind(this);
   }
 
@@ -41,8 +42,12 @@ class BillboardSongs extends Component {
     }
   }
 
+  songTrackRange() {
+    console.log(this.props.songTracks);
+  }
+
   sortSongItems(sortOption) {
-    console.log(this.props.songTracks); // this is where I will add an range in array to the songs?
+    // add the range of the song before ascending the songTracks.
 
     let ascendSongs = ( // sort songs from low moodScore to high
       this.props.songTracks
@@ -81,7 +86,10 @@ class BillboardSongs extends Component {
 
   render() {
     return (
-      this.sortSongItems(this.props.sortOption)
+      <div>
+        <button onClick={this.songTrackRange}>Song Track Range Smoke Test</button>
+        {this.sortSongItems(this.props.sortOption)}
+      </div>
     )
   }
 }
