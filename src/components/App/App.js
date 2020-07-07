@@ -38,6 +38,8 @@ class App extends Component {
   async componentDidMount() {
     // Fetch token using client credentials flow  authorization
     const _token = await this.getToken();
+    console.log('token :', _token); // there might be an token error
+
     // Requst for Billboard Playst and use for loop to get Get track.name and track.id and put it in an object.
     const songIdList = await this.getBillboardSongId(_token);
     const songTracks = await this.getAllSongTracks(_token, songIdList);
