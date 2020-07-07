@@ -4,9 +4,9 @@ import axios from 'axios';
 import { headers, data } from '../../config';
 import logo from '../../logo.svg';
 import './App.css';
-import BillboardSongs from '../BillboardSongs/BillboardSongs';
 import VerticalSlider from '../VerticalSlider/VerticalSlider';
 import MoodButtonGroup from '../MoodButtonGroup/MoodButtonGroup';
+import MainSection from '../MainSection/MainSection';
 
 class App extends Component {
   constructor() {
@@ -183,7 +183,7 @@ class App extends Component {
           />
         </div>
         <div className='main-section'>
-          <BillboardSongs 
+          <MainSection
             songTracks={this.state.items}
             sortOption={this.state.sortOption}
             moodRange={this.state.moodRange}
