@@ -48,9 +48,9 @@ class SearchBar extends Component {
   }
 
   delaySearch(txt) { // search for songs using the userInput
-    const { searchSongs } = this.props;
+    const { songSearch } = this.props;
 
-    searchSongs(txt) // give it userInput
+    songSearch(txt) // give it userInput
     .then(songSuggestions => { // gives back songSuggestions based on your search
       // console.log('onChange: ', songSuggestions);
 

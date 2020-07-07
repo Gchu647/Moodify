@@ -95,7 +95,6 @@ class BillboardSongs extends Component {
   render() {
     return (
       <div>
-        <button onClick={this.songTrackRange}>Song Track Range Smoke Test</button>
         {this.sortSongItems(this.props.sortOption)}
       </div>
     )

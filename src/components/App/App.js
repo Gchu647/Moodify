@@ -46,7 +46,10 @@ class App extends Component {
     const songsWithMood = await this.getMoodScore(_token, songTracks);
     // console.log('songs with mood: ', songsWithMood);
 
-    this.setState({ items: songsWithMood});
+    this.setState({ 
+      token: _token, 
+      items: songsWithMood
+    });
   }
 
   getToken () {
@@ -187,6 +190,7 @@ class App extends Component {
             songTracks={this.state.items}
             sortOption={this.state.sortOption}
             moodRange={this.state.moodRange}
+            token={this.state.token}
           />
         </div>
       </div>
