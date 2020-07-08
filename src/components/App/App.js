@@ -79,7 +79,7 @@ class App extends Component {
       }
     })
     .then( response => {
-      for (let i = 0; i < 50; i++) { // change song limit over here
+      for (let i = 0; i < 45; i++) { // change song limit over here
         songId.push(response.data.items[i].track.id)
       }
 
@@ -147,6 +147,7 @@ class App extends Component {
         }
       })
       .then( features => {
+        console.log('popularity: ',features.data)
         let moodScore = Math.round(features.data.valence * 100);
         songTrack.moodScore = moodScore; // adding features to the songs objects
       })
