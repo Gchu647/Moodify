@@ -79,7 +79,7 @@ class App extends Component {
       }
     })
     .then( response => {
-      for (let i = 0; i < 100; i++) { // change song limit over here
+      for (let i = 0; i < 50; i++) { // change song limit over here
         songId.push(response.data.items[i].track.id)
       }
 
@@ -89,6 +89,7 @@ class App extends Component {
   }
   
   getAllSongTracks(token, songIdList) {
+    console.log('getAllSongTracks!');
     let songTracks = songIdList.map(songId => {
       return axios({
         method: 'get',
@@ -135,7 +136,7 @@ class App extends Component {
   }
 
   getMoodScore(token, songs) {
-    console.log('getValence');
+    console.log('getMoodScore!');
     let requestFeatures = songs.map(songTrack => {
       return axios({
         method: 'get',
