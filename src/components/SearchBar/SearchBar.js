@@ -48,6 +48,8 @@ class SearchBar extends Component {
         userInput: '',
         showSuggestions: false 
       });
+
+      this.props.showSearchResults(false);
     }
   }
 
@@ -63,6 +65,8 @@ class SearchBar extends Component {
         songSuggestions: songSuggestions,
         showSuggestions: true
       });
+
+      this.props.showSearchResults(true);
     })
     .catch( err => console.log(err));
   }

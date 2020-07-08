@@ -7,7 +7,16 @@ class MainSection extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      searchResults: false
+    }
+
+    this.showSearchResults = this.showSearchResults.bind(this);
     this.songSearch = this.songSearch.bind(this);
+  }
+
+  showSearchResults(val) {
+    this.setState({ searchResults: val});
   }
 
   songSearch(textQuery) {
@@ -65,12 +74,15 @@ class MainSection extends Component {
       <div>
         <SearchBar 
           songSearch={this.songSearch}
+          showSearchResults={this.showSearchResults}
         />
-        <BillboardSongs 
+        {!this.state.searchResults && 
+        (<BillboardSongs 
           songTracks={songTracks}
           sortOption={sortOption}
           moodRange={moodRange}
-        />
+        />)
+        }
       </div>
     )
   }
