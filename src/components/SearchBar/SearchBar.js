@@ -92,6 +92,8 @@ class SearchBar extends Component {
       }
     } = this;
 
+    console.log('songSuggestions: ', songSuggestions);
+
     let suggestionsListComponent;
 
     if (showSuggestions && userInput) { // when these state values are not falsy

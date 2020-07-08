@@ -25,7 +25,7 @@ class MainSection extends Component {
       }
     })
     .then( response => {
-      console.log('search songs! ', response.data.tracks.items);
+      // console.log('search songs! ', response.data.tracks.items);
 
       let songSuggestions = response.data.tracks.items.map(song => { // fetch song name and artists
         // prepare the artist names
@@ -33,9 +33,18 @@ class MainSection extends Component {
           return elem.name;
         });
 
+        console.log('search songs! ', {
+          name: song.name,
+          artists: artists.join(', '),
+          album_image: song.album.images[1].url,
+          id: song.id
+        })
+
         return {
           name: song.name,
-          artists: artists.join(', ')
+          artists: artists.join(', '),
+          album_image: song.album.images[1].url,
+          id: song.id
         }
 
         // return song.name;
