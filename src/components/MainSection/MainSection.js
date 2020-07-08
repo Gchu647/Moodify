@@ -47,7 +47,7 @@ class MainSection extends Component {
       return songSuggestions;
     })
     .then(songSuggestions => {
-      const songsWithMood = this.props.getMoodScore(this.props.token, songSuggestions);
+      const songsWithMood = this.props.getMoodScores(this.props.token, songSuggestions);
 
       return songsWithMood;
     })

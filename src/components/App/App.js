@@ -29,7 +29,7 @@ class App extends Component {
     this.getToken = this.getToken.bind(this);
     this.getBillboardSongId = this.getBillboardSongId.bind(this);
     this.getAllSongTracks = this.getAllSongTracks.bind(this);
-    this.getMoodScore = this.getMoodScore.bind(this);
+    this.getMoodScores = this.getMoodScores.bind(this);
     this.happySort = this.happySort.bind(this);
     this.sadSort = this.sadSort.bind(this);
     this.setMoodRange = this.setMoodRange.bind(this);
@@ -43,7 +43,7 @@ class App extends Component {
     // Requst for Billboard Playst and use for loop to get Get track.name and track.id and put it in an object.
     const songIdList = await this.getBillboardSongId(_token);
     const songTracks = await this.getAllSongTracks(_token, songIdList);
-    const songsWithMood = await this.getMoodScore(_token, songTracks);
+    const songsWithMood = await this.getMoodScores(_token, songTracks);
     // console.log('songs with mood: ', songsWithMood);
 
     this.setState({ 
@@ -135,8 +135,8 @@ class App extends Component {
     })
   }
 
-  getMoodScore(token, songs) {
-    console.log('getMoodScore!');
+  getMoodScores(token, songs) {
+    console.log('getMoodScores!');
     let requestFeatures = songs.map(songTrack => {
       return axios({
         method: 'get',
@@ -192,7 +192,7 @@ class App extends Component {
             sortOption={this.state.sortOption}
             moodRange={this.state.moodRange}
             token={this.state.token}
-            getMoodScore={this.getMoodScore}
+            getMoodScores={this.getMoodScores}
           />
         </div>
       </div>
