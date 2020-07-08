@@ -33,13 +33,6 @@ class MainSection extends Component {
           return elem.name;
         });
 
-        console.log('search songs! ', {
-          name: song.name,
-          artists: artists.join(', '),
-          album_image: song.album.images[1].url,
-          id: song.id
-        })
-
         return {
           name: song.name,
           artists: artists.join(', '),
@@ -52,6 +45,11 @@ class MainSection extends Component {
 
       // console.log('search songs!', songSuggestions);
       return songSuggestions;
+    })
+    .then(songSuggestions => {
+      const songsWithMood = this.props.getMoodScore(this.props.token, songSuggestions);
+
+      return songsWithMood;
     })
     .catch( err => console.log(err));
   }

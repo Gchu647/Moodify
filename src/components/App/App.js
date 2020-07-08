@@ -192,6 +192,7 @@ class App extends Component {
             sortOption={this.state.sortOption}
             moodRange={this.state.moodRange}
             token={this.state.token}
+            getMoodScore={this.getMoodScore}
           />
         </div>
       </div>
