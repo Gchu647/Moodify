@@ -147,7 +147,6 @@ class App extends Component {
         }
       })
       .then( features => {
-        console.log('popularity: ',features.data)
         let moodScore = Math.round(features.data.valence * 100);
         songTrack.moodScore = moodScore; // adding features to the songs objects
       })

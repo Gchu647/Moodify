@@ -25,7 +25,7 @@ class MainSection extends Component {
       }
     })
     .then( response => {
-      // console.log('search songs! ', response.data.tracks.items);
+      console.log('search songs! ', response.data.tracks.items);
 
       let songSuggestions = response.data.tracks.items.map(song => { // fetch song name and artists
         // prepare the artist names
@@ -34,7 +34,7 @@ class MainSection extends Component {
         });
 
         return {
-          songName: song.name,
+          name: song.name,
           artists: artists.join(', ')
         }
 

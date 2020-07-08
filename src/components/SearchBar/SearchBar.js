@@ -10,8 +10,12 @@ class SearchBar extends Component {
       activeSuggestion: 0,
       // The suggestions that match the user's input in Spotify API
       songSuggestions: [{
-        songName: '',
-        artists: ''
+        name: '',
+        artists: '',
+        album_image: null,
+        song_audio: null,
+        moodScore: null,
+        id: null
       }],
       // Whether or not the suggestion list is shown
       showSuggestions: false,
@@ -109,7 +113,7 @@ class SearchBar extends Component {
                   key={index}
                   onClick={onClick}
                 >
-                  <p>{suggestion.songName}</p>
+                  <p>{suggestion.name}</p>
                   <p className='artists'>{suggestion.artists}</p>
                 </li>
               );
