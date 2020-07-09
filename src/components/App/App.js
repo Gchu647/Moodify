@@ -107,6 +107,18 @@ class App extends Component {
         let artists = response.data.album.artists.map( elem => {
           return elem.name
         });
+
+        // Show songs with no audio
+        console.log(
+          'song audio/null: ',
+          {
+            name: response.data.name,
+            artists: artists.join(', '),
+            album_image: response.data.album.images[1].url,
+            song_audio: response.data.preview_url,
+            id: songId
+          }
+        );
          
         if (response.data.preview_url) { // only return songs that have a audio preview
           let songItem = {

@@ -8,7 +8,13 @@ class PlayButton extends Component {
   }
 
   handleClick() {
-    this.props.audioControl(this.props.songAudio, this.props.songName);
+    const {
+      audioControl,
+      songAudio,
+      songName
+    } = this.props;
+
+    audioControl(songAudio, songName);
   }
 
   render() {
