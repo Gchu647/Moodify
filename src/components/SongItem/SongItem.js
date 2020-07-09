@@ -14,7 +14,7 @@ const SongItem = props => {
   
   let sectionStyle = {
     width: '100%',
-    height: '221px',
+    height: '191px',
     backgroundImage: `url(${albumImage})`,
     backgroundSize: 'contain',
     backgroundColor: 'yellow'
