@@ -119,21 +119,17 @@ class App extends Component {
             id: songId
           }
         );
-         
-        if (response.data.preview_url) { // only return songs that have a audio preview
-          let songItem = {
-            name: response.data.name,
-            artists: artists.join(', '),
-            album_image: response.data.album.images[1].url,
-            song_audio: response.data.preview_url, //Notes: turn into ino new Audio later
-            id: songId
-           }
-  
-          //  console.log('songItem', songItem);
-           return songItem;
+        
+        let songItem = {
+          name: response.data.name,
+          artists: artists.join(', '),
+          album_image: response.data.album.images[1].url,
+          song_audio: response.data.preview_url, //Notes: turn into ino new Audio later
+          id: songId
         }
 
-        return null;
+        //  console.log('songItem', songItem);
+        return songItem;
       })
       .catch( err => console.log(err));
     })

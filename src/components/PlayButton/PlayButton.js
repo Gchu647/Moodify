@@ -14,7 +14,11 @@ class PlayButton extends Component {
       songName
     } = this.props;
 
-    audioControl(songAudio, songName);
+    if(songAudio) {
+      audioControl(songAudio, songName);
+    } else {
+      alert('No audio link!');
+    }
   }
 
   render() {
