@@ -108,28 +108,19 @@ class App extends Component {
           return elem.name
         });
 
-        // Show songs with no audio
-        console.log(
-          'song audio/null: ',
-          {
+        if(response.data.preview_url) {
+          let songItem = {
             name: response.data.name,
             artists: artists.join(', '),
             album_image: response.data.album.images[1].url,
-            song_audio: response.data.preview_url,
+            song_audio: response.data.preview_url, //Notes: turn into ino new Audio later
             id: songId
           }
-        );
-        
-        let songItem = {
-          name: response.data.name,
-          artists: artists.join(', '),
-          album_image: response.data.album.images[1].url,
-          song_audio: response.data.preview_url, //Notes: turn into ino new Audio later
-          id: songId
+
+          return songItem;
         }
 
-        //  console.log('songItem', songItem);
-        return songItem;
+        return null;
       })
       .catch( err => console.log(err));
     })
