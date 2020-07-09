@@ -3,7 +3,10 @@ import axios from 'axios';
 import BillboardSongs from '../BillboardSongs/BillboardSongs';
 import SearchBar from '../SearchBar/SearchBar';
 import SongItem from '../SongItem/SongItem';
+import { Modal, Button } from 'rsuite';
+
 import './MainSection.css';
+import 'rsuite/dist/styles/rsuite-default.css';
 
 class MainSection extends Component {
   constructor(props) {
@@ -18,11 +21,14 @@ class MainSection extends Component {
         moodScore: null,
         id: null
       }],
-      searchResults: false
+      searchResults: false,
+      showModal: false,
     }
 
     this.songSearch = this.songSearch.bind(this);
     this.showSearchResults = this.showSearchResults.bind(this);
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
   }
 
   showSearchResults(val) {
@@ -77,6 +83,14 @@ class MainSection extends Component {
     .catch( err => console.log(err));
   }
 
+  close() {
+    this.setState({showModal: false});
+  }
+
+  open() {
+    this.setState({ showModal: true });
+  }
+
   render() {
     const { 
       songTracks,
@@ -121,6 +135,9 @@ class MainSection extends Component {
           songSearch={this.songSearch}
           showSearchResults={this.showSearchResults}
         />
+        <Button size="xs" onClick={() => this.open('xs')}>
+            Modal
+        </Button>
         <div className='search-results'>
           {this.state.searchResults && suggestionsListComponent}
         </div>
@@ -131,6 +148,22 @@ class MainSection extends Component {
           moodRange={moodRange}
         />)
         }
+        <Modal size='xs' show={this.state.showModal} onHide={this.close}>
+          <Modal.Header>
+            <Modal.Title>Modal Title</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div>This is Modal</div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.close} appearance="primary">
+              Ok
+            </Button>
+            <Button onClick={this.close} appearance="subtle">
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
     )
   }
