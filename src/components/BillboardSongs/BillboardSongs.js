@@ -11,35 +11,8 @@ class BillboardSongs extends Component {
       isPlaying: false,
     };
 
-    this.audioControl = this.audioControl.bind(this);
     this.songTrackRange = this.songTrackRange.bind(this);
     this.sortSongItems = this.sortSongItems.bind(this);
-  }
-
-  audioControl(audioLink, songName) {
-    if (!this.state.isPlaying) { // condition 1: when no song is playing
-      this.setState({
-        currAudio: new Audio(audioLink),
-        isPlaying: true
-      }, () =>{
-        console.log(songName + 'is playing ' + this.state.isPlaying);
-        
-        this.state.currAudio.play(); // play song
-      });
-    } else if (this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) { // condition 2: stop when press the same song
-      // console.log(songName + ': ' + typeof this.state.currAudio.currentSrc);
-      console.log(songName + 'is paused' + this.state.isPlaying);
-
-      this.state.currAudio.pause(); // pause song
-      this.setState({isPlaying: false});
-    } else if (this.state.currAudio.currentSrc != audioLink && this.state.isPlaying) { // condition 3: switch to a new song
-      console.log(songName + 'is a new song' + this.state.isPlaying);
-
-      this.state.currAudio.pause();
-      this.setState({currAudio: new Audio(audioLink)}, () => {
-        this.state.currAudio.play();
-      });
-    }
   }
 
   songTrackRange(moodRange) { // filters out the song tracks based on moodScore    
@@ -71,7 +44,7 @@ class BillboardSongs extends Component {
             artists={song.artists}
             albumImage={song.album_image}
             moodScore={song.moodScore}
-            audioControl={this.audioControl}
+            audioControl={this.props.audioControl}
           />
         )
       })

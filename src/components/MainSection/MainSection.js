@@ -15,15 +15,16 @@ class MainSection extends Component {
         name: '',
         artists: '',
         album_image: null,
-        song_audio: null,
+        audio: null,
         moodScore: null,
         id: null
       }],
       searchResults: false
     }
 
-    this.songSearch = this.songSearch.bind(this);
     this.showSearchResults = this.showSearchResults.bind(this);
+    this.songSearch = this.songSearch.bind(this);
+    this.audioControl = this.audioControl.bind(this);
   }
 
   showSearchResults(val) {
@@ -38,14 +39,14 @@ class MainSection extends Component {
 
     return axios({
       method: 'get',
-      url: `https://api.spotify.com/v1/search?q=${text_query}&type=track&market=US&limit=10`,
+      url: `https://api.spotify.com/v1/search?q=${text_query}&type=track&market=US&limit=8`,
       headers: {
         'Authorization': `Bearer ${this.props.token}`,
         'Content-Type': 'SearchApplication/json'
       }
     })
     .then( response => {
-      // console.log('search songs! ', response.data.tracks.items);
+      console.log('search songs 1! ', response.data.tracks.items);
 
       let suggestions = response.data.tracks.items.map(song => { // fetch song name and artists
         // prepare the artist names
@@ -57,11 +58,12 @@ class MainSection extends Component {
           name: song.name,
           artists: artists.join(', '),
           album_image: song.album.images[1].url,
+          audio: song.preview_url,
           id: song.id
         }
       })
 
-      // console.log('search songs!', suggestions);
+      console.log('search songs 2!', suggestions);
       return suggestions;
     })
     .then(suggestions => {
@@ -78,6 +80,32 @@ class MainSection extends Component {
     .catch( err => console.log(err));
   }
 
+  audioControl(audioLink, songName) {
+    if (!this.state.isPlaying) { // condition 1: when no song is playing
+      this.setState({
+        currAudio: new Audio(audioLink),
+        isPlaying: true
+      }, () =>{
+        console.log(songName + 'is playing ' + this.state.isPlaying);
+        
+        this.state.currAudio.play(); // play song
+      });
+    } else if (this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) { // condition 2: stop when press the same song
+      // console.log(songName + ': ' + typeof this.state.currAudio.currentSrc);
+      console.log(songName + 'is paused' + this.state.isPlaying);
+
+      this.state.currAudio.pause(); // pause song
+      this.setState({isPlaying: false});
+    } else if (this.state.currAudio.currentSrc != audioLink && this.state.isPlaying) { // condition 3: switch to a new song
+      console.log(songName + 'is a new song' + this.state.isPlaying);
+
+      this.state.currAudio.pause();
+      this.setState({currAudio: new Audio(audioLink)}, () => {
+        this.state.currAudio.play();
+      });
+    }
+  }
+
   render() {
     const { 
       songTracks,
@@ -87,8 +115,8 @@ class MainSection extends Component {
 
     const { songSuggestions } = this.state;
 
-    console.log('songSuggestions: ', songSuggestions);
-    console.log('suggestionLength: ', songSuggestions.length);
+    // console.log('songSuggestions: ', songSuggestions);
+    // console.log('suggestionLength: ', songSuggestions.length);
 
     let suggestionsListComponent;
 
@@ -96,15 +124,15 @@ class MainSection extends Component {
       console.log('pass through if statement.')
       suggestionsListComponent = songSuggestions.map(
         song => {
-        // console.log('Billboard ' + song.name);
+        console.log('Mainsection audio ' + song.audio);
         return (
           <SongItem 
             songName={song.name}
-            songAudio={null}
+            songAudio={song.audio}
             artists={song.artists}
             albumImage={song.album_image}
             moodScore={song.moodScore}
-            audioControl={null}
+            audioControl={this.audioControl}
           />
         )
       });
@@ -130,6 +158,7 @@ class MainSection extends Component {
           songTracks={songTracks}
           sortOption={sortOption}
           moodRange={moodRange}
+          audioControl={this.audioControl}
         />)
         }
       </div>
