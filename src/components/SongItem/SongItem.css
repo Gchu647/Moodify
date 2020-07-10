@@ -45,6 +45,9 @@
 .song-container-bottom-right {
   display: flex;
   align-items: flex-end;
+  height: 80px;
+  border: solid 1px hotpink;
+  position: relative;
 }
 
 .fa-play-circle {
