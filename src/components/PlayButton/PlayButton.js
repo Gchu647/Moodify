@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Modal, Button } from 'rsuite';
 import 'rsuite/dist/styles/rsuite-default.css';
+import './PlayButton.css';
 
 class PlayButton extends Component {
   constructor(props) {
@@ -40,7 +41,9 @@ class PlayButton extends Component {
   render() {
     return(
       <div>
-        <i className="fa fa-play-circle" aria-hidden="true" onClick={this.handleClick}></i>
+        <div className="audio-button ">
+          <i className="material-icons" onClick={this.handleClick}>play_arrow</i>
+        </div>
         <Modal size='xs' show={this.state.showModal} onHide={this.close}>
           <Modal.Body>
             <div>Spotify does not support previewing this song. Click here to listen to the full track</div>

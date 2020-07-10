@@ -1,19 +1,7 @@
-.audio-button-container {
-  display: flex;
-  height: 80px;
-  border: solid 1px hotpink;
-  align-items: flex-end;
-}
-
 .audio-button {
   color: white;
-  background-color: hotpink;
+  background-color: #1db954;
   padding: 6px;
   border-radius: 50%;
   cursor: pointer;
-}
-
-.fa-play-circle {
-  font-size: 45px;
-  color: #1db954;
 }
