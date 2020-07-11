@@ -17,7 +17,8 @@ class MainSection extends Component {
         album_image: null,
         audio: null,
         moodScore: null,
-        id: null
+        id: null,
+        external_url: null
       }],
       searchResults: false,
       isPlaying: false,
@@ -47,7 +48,7 @@ class MainSection extends Component {
       }
     })
     .then( response => {
-      console.log('search songs 1! ', response.data.tracks.items);
+      // console.log('search songs 1! ', response.data.tracks.items);
 
       let suggestions = response.data.tracks.items.map(song => { // fetch song name and artists
         // prepare the artist names
@@ -55,12 +56,15 @@ class MainSection extends Component {
           return elem.name;
         });
 
+        console.log('external url! ', song.external_urls.spotify);
+
         return {
           name: song.name,
           artists: artists.join(', '),
           album_image: song.album.images[1].url,
           audio: song.preview_url,
-          id: song.id
+          id: song.id,
+          external_url: song.external_urls.spotify
         }
       })
 
@@ -68,7 +72,7 @@ class MainSection extends Component {
       return suggestions;
     })
     .then(suggestions => {
-      const songsWithMood = this.props.getMoodScores(this.props.token, suggestions);
+      const songsWithMood = this.props.getMoodScores(this.props.token, suggestions); // add in moodScores
       
       return songsWithMood;
     })
@@ -86,20 +90,13 @@ class MainSection extends Component {
       this.setState({
         currAudio: new Audio(audioLink),
         isPlaying: true
-      }, () =>{
-        console.log(songName + 'is playing ' + this.state.isPlaying);
-        
+      }, () =>{        
         this.state.currAudio.play(); // play song
       });
     } else if (this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) { // condition 2: stop when press the same song
-      // console.log(songName + ': ' + typeof this.state.currAudio.currentSrc);
-      console.log(songName + 'is paused' + this.state.isPlaying);
-
       this.state.currAudio.pause(); // pause song
       this.setState({isPlaying: false});
     } else if (this.state.currAudio.currentSrc != audioLink && this.state.isPlaying) { // condition 3: switch to a new song
-      console.log(songName + 'is a new song' + this.state.isPlaying);
-
       this.state.currAudio.pause();
       this.setState({currAudio: new Audio(audioLink)}, () => {
         this.state.currAudio.play();
@@ -125,7 +122,6 @@ class MainSection extends Component {
       console.log('pass through if statement.')
       suggestionsListComponent = songSuggestions.map(
         song => {
-        console.log('Mainsection audio ' + song.audio);
         return (
           <SongItem 
             songName={song.name}
@@ -133,6 +129,7 @@ class MainSection extends Component {
             artists={song.artists}
             albumImage={song.album_image}
             moodScore={song.moodScore}
+            exterURL={song.external_url}
             audioControl={this.audioControl}
           />
         )

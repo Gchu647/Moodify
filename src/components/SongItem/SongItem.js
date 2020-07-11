@@ -8,7 +8,8 @@ const SongItem = props => {
     songAudio,
     artists, 
     albumImage,
-    moodScore, 
+    moodScore,
+    exterURL, 
     audioControl
   } = props;
   
@@ -38,7 +39,8 @@ const SongItem = props => {
           <PlayButton 
             audioControl={audioControl} 
             songAudio={songAudio}
-            songName={songName} // TESTING
+            songName={songName}
+            exterURL={exterURL}
           />
         </div>
       </div>

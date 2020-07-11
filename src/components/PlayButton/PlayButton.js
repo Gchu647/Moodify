@@ -62,14 +62,13 @@ class PlayButton extends Component {
         </div>
         <Modal size='xs' show={this.state.showModal} onHide={this.close}>
           <Modal.Body>
-            <div>Spotify does not support previewing this song. Click here to listen to the full track</div>
+            <p>Spotify does not support previewing this song.</p>
+            <p>{this.props.exterURL && (<a href={this.props.exterURL} target="_blank">Click here </a>)} 
+             to listen to the song on Spotify</p>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.close} appearance="primary">
-              Ok
-            </Button>
-            <Button onClick={this.close} appearance="subtle">
-              Cancel
+              Close
             </Button>
           </Modal.Footer>
         </Modal>

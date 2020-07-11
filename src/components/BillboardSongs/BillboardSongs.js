@@ -44,6 +44,7 @@ class BillboardSongs extends Component {
             artists={song.artists}
             albumImage={song.album_image}
             moodScore={song.moodScore}
+            exterURL={null} // hack for searchResults with no previews
             audioControl={this.props.audioControl}
           />
         )

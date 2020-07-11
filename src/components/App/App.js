@@ -100,7 +100,7 @@ class App extends Component {
         }
       })
       .then( response => {
-        // console.log('track name 2: ' + response.data.name);
+        // console.log('external urls: ' + response.data.external_urls.spotify);
         // console.log('track preview_url2' + response.data.preview_url);
          
         // prepare the artist names
