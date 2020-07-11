@@ -9,15 +9,15 @@
   border-radius: 10px;
 }
 
+.song-container:hover .song-score-container {
+  background-color: rgba(29, 185, 84, 0.75);
+}
+
 .song-score-container {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.song-score-container:hover {
-  background-color: rgba(29, 185, 84, 0.75);
 }
 
 .song-score {
