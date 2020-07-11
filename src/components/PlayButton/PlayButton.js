@@ -8,12 +8,18 @@ class PlayButton extends Component {
     super(props);
 
     this.state = {
-      showModal: false
+      showModal: false,
+      isPlaying: false
     }
 
+    this.audioButton = this.audioButton.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+  }
+
+  audioButton () {
+    return (<i className="material-icons" onClick={this.handleClick}>play_arrow</i>);
   }
 
   handleClick() {
@@ -42,7 +48,7 @@ class PlayButton extends Component {
     return(
       <div>
         <div className="audio-button ">
-          <i className="material-icons" onClick={this.handleClick}>play_arrow</i>
+          {this.audioButton()}
         </div>
         <Modal size='xs' show={this.state.showModal} onHide={this.close}>
           <Modal.Body>
