@@ -19,7 +19,8 @@ class MainSection extends Component {
         moodScore: null,
         id: null
       }],
-      searchResults: false
+      searchResults: false,
+      isPlaying: false,
     }
 
     this.showSearchResults = this.showSearchResults.bind(this);
@@ -81,6 +82,7 @@ class MainSection extends Component {
   }
 
   audioControl(audioLink, songName) {
+    console.log('playing? ', this.state.isPlaying);
     if (!this.state.isPlaying) { // condition 1: when no song is playing
       this.setState({
         currAudio: new Audio(audioLink),
