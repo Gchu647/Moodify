@@ -19,7 +19,11 @@ class PlayButton extends Component {
   }
 
   audioButton () {
-    return (<i className="material-icons" onClick={this.handleClick}>play_arrow</i>);
+    if(!this.state.isPlaying) {
+      return (<i className="material-icons" onClick={this.handleClick}>play_arrow</i>);
+    } else {
+      return (<i className="material-icons" onClick={this.handleClick}>stop</i>);
+    }
   }
 
   handleClick() {
@@ -30,7 +34,13 @@ class PlayButton extends Component {
     } = this.props;
 
     if(songAudio) {
-      audioControl(songAudio, songName);
+      audioControl(songAudio, songName); // call on the audioControl in MainSection
+
+      if(!this.state.isPlaying) { // change the setting of our audioButton
+        this.setState({ isPlaying: true });
+      } else {
+        this.setState({ isPlaying: false });
+      }
     } else {
       this.open('xs');
     }
