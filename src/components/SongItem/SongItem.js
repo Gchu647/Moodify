@@ -1,53 +1,59 @@
-import React from 'react';
+import React, {Component} from 'react';
 import './SongItem.css';
 import PlayButton from '../PlayButton/PlayButton';
 
-const SongItem = props => {
-  const {
-    songName,
-    songAudio,
-    artists, 
-    albumImage,
-    moodScore,
-    exterURL, 
-    audioControl,
-    songIsPlaying,
-  } = props;
-  
-  let sectionStyle = {
-    width: '100%',
-    height: '191px',
-    backgroundImage: `url(${albumImage})`,
-    backgroundSize: 'contain',
-    backgroundColor: 'yellow'
-  };
+class SongItem extends Component {
+  constructor(props) {
+    super(props)
+  }
 
-  return (
-    <div className='song-container'>
-      {/* {console.log('songItem: ', songName, moodScore)} */}
-      <div className='album-image' style={sectionStyle}>
-		    <div className='song-score-container'>
-          <p className='song-score'>{moodScore}</p>
-		    </div>
-	    </div>
-      <div className='song-container-bottom'>
-        <div className='song-container-bottom-left'>
-          {/* Make the songName shorter! */}
-          <p className='song-title'>{songName}</p>
-          <p className='song-artists'>{artists}</p>
+  render() {
+    const {
+      songName,
+      songAudio,
+      artists, 
+      albumImage,
+      moodScore,
+      exterURL, 
+      audioControl,
+      songIsPlaying,
+    } = this.props;
+    
+    let sectionStyle = {
+      width: '100%',
+      height: '191px',
+      backgroundImage: `url(${albumImage})`,
+      backgroundSize: 'contain',
+      backgroundColor: 'yellow'
+    };
+  
+    return (
+      <div className='song-container'>
+        {/* {console.log('songItem: ', songName, moodScore)} */}
+        <div className='album-image' style={sectionStyle}>
+          <div className='song-score-container'>
+            <p className='song-score'>{moodScore}</p>
+          </div>
         </div>
-        <div className='song-container-bottom-right'>
-          <PlayButton 
-            audioControl={audioControl} 
-            songAudio={songAudio}
-            songIsPlaying={songIsPlaying}
-            songName={songName}
-            exterURL={exterURL}
-          />
+        <div className='song-container-bottom'>
+          <div className='song-container-bottom-left'>
+            {/* Make the songName shorter! */}
+            <p className='song-title'>{songName}</p>
+            <p className='song-artists'>{artists}</p>
+          </div>
+          <div className='song-container-bottom-right'>
+            <PlayButton 
+              audioControl={audioControl} 
+              songAudio={songAudio}
+              songIsPlaying={songIsPlaying}
+              songName={songName}
+              exterURL={exterURL}
+            />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default SongItem;
