@@ -8,8 +8,7 @@ class PlayButton extends Component {
     super(props);
 
     this.state = {
-      showModal: false,
-      isPlaying: false
+      showModal: false
     }
 
     this.audioButton = this.audioButton.bind(this);
@@ -19,7 +18,7 @@ class PlayButton extends Component {
   }
 
   audioButton () {
-    if(!this.state.isPlaying) {
+    if(!this.props.songIsPlaying) {
       return (<i className="material-icons" onClick={this.handleClick}>play_arrow</i>);
     } else {
       return (<i className="material-icons" onClick={this.handleClick}>stop</i>);
@@ -35,12 +34,6 @@ class PlayButton extends Component {
 
     if(songAudio) {
       audioControl(songAudio, songName); // call on the audioControl in MainSection
-
-      if(!this.state.isPlaying) { // change the setting of our audioButton
-        this.setState({ isPlaying: true });
-      } else {
-        this.setState({ isPlaying: false });
-      }
     } else {
       this.open('xs');
     }
