@@ -160,6 +160,7 @@ class MainSection extends Component {
           sortOption={sortOption}
           moodRange={moodRange}
           audioControl={this.audioControl}
+          songIsPlaying={this.state.isPlaying}
         />)
         }
       </div>

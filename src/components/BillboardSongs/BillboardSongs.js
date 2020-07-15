@@ -5,11 +5,6 @@ import SongItem from '../SongItem/SongItem';
 class BillboardSongs extends Component {
   constructor(props) {
     super(props);
-    
-    // this.state = {
-    //   currAudio: null,
-    //   isPlaying: false,
-    // };
 
     this.songTrackRange = this.songTrackRange.bind(this);
     this.sortSongItems = this.sortSongItems.bind(this);
@@ -28,7 +23,7 @@ class BillboardSongs extends Component {
 
   sortSongItems(sortOption) {
     const filteredSongs = this.songTrackRange(this.props.moodRange);
-    // console.log('Billboard Sort!!!', this.state.isPlaying);
+    // console.log('Billboard Sort!!!', this.props.songIsPlaying);
 
     let ascendSongs = ( // sort songs from low moodScore to high
       filteredSongs
@@ -46,7 +41,7 @@ class BillboardSongs extends Component {
             moodScore={song.moodScore}
             exterURL={null} // hack for searchResults with no previews
             audioControl={this.props.audioControl}
-            songIsPlaying={this.state.isPlaying}
+            songIsPlaying={this.props.songIsPlaying}
           />
         )
       })
@@ -68,7 +63,7 @@ class BillboardSongs extends Component {
   }
 
   render() {
-    console.log('Billboard render!!!', this.state.isPlaying);
+    // console.log('Billboard render!!!', this.props.songIsPlaying);
 
     return (
       <div>

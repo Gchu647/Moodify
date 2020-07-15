@@ -55,7 +55,7 @@ class PlayButton extends Component {
   }
 
   render() {
-    // console.log('Is song playing ', this.props.songIsPlaying);
+    console.log('Is song playing ', this.props.songIsPlaying);
 
     return(
       <div>
