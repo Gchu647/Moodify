@@ -21,12 +21,10 @@ class MainSection extends Component {
         external_url: null
       }],
       searchResults: false,
-      isPlaying: false,
     }
 
     this.showSearchResults = this.showSearchResults.bind(this);
     this.songSearch = this.songSearch.bind(this);
-    this.audioControl = this.audioControl.bind(this);
   }
 
   showSearchResults(val) {
@@ -85,28 +83,6 @@ class MainSection extends Component {
     .catch( err => console.log(err));
   }
 
-  audioControl(audioLink) {
-    if (!this.state.isPlaying) { // condition 1: when no song is playing
-      console.log('no song isPlaying: ', this.state.isPlaying);
-      this.setState({
-        currAudio: new Audio(audioLink),
-        isPlaying: true
-      }, () =>{        
-        this.state.currAudio.play(); // play song
-      });
-    } else if (this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) { // condition 2: stop when press the same song
-      console.log('stop same song: ', this.state.isPlaying);
-      this.state.currAudio.pause(); // pause song
-      this.setState({isPlaying: false});
-    } else if (this.state.currAudio.currentSrc != audioLink && this.state.isPlaying) { // condition 3: switch to a new song
-      console.log('switch new song: ', this.state.isPlaying);
-      this.state.currAudio.pause();
-      this.setState({currAudio: new Audio(audioLink)}, () => {
-        this.state.currAudio.play();
-      });
-    }
-  }
-
   render() {
     const { 
       songTracks,
@@ -132,8 +108,6 @@ class MainSection extends Component {
             albumImage={song.album_image}
             moodScore={song.moodScore}
             exterURL={song.external_url}
-            audioControl={this.audioControl}
-            songIsPlaying={this.state.isPlaying}
           />
         )
       });
@@ -159,8 +133,6 @@ class MainSection extends Component {
           songTracks={songTracks}
           sortOption={sortOption}
           moodRange={moodRange}
-          audioControl={this.audioControl}
-          songIsPlaying={this.state.isPlaying}
         />)
         }
       </div>

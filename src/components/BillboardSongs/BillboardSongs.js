@@ -23,7 +23,6 @@ class BillboardSongs extends Component {
 
   sortSongItems(sortOption) {
     const filteredSongs = this.songTrackRange(this.props.moodRange);
-    // console.log('Billboard Sort!!!', this.props.songIsPlaying);
 
     let ascendSongs = ( // sort songs from low moodScore to high
       filteredSongs
@@ -40,8 +39,6 @@ class BillboardSongs extends Component {
             albumImage={song.album_image}
             moodScore={song.moodScore}
             exterURL={null} // hack for searchResults with no previews
-            audioControl={this.props.audioControl}
-            songIsPlaying={this.props.songIsPlaying}
           />
         )
       })
@@ -63,8 +60,6 @@ class BillboardSongs extends Component {
   }
 
   render() {
-    // console.log('Billboard render!!!', this.props.songIsPlaying);
-
     return (
       <div>
         {this.sortSongItems(this.props.sortOption)}
