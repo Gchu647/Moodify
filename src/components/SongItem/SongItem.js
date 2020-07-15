@@ -10,7 +10,8 @@ const SongItem = props => {
     albumImage,
     moodScore,
     exterURL, 
-    audioControl
+    audioControl,
+    songIsPlaying,
   } = props;
   
   let sectionStyle = {
@@ -39,6 +40,7 @@ const SongItem = props => {
           <PlayButton 
             audioControl={audioControl} 
             songAudio={songAudio}
+            songIsPlaying={songIsPlaying}
             songName={songName}
             exterURL={exterURL}
           />

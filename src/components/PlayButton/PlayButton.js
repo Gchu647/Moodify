@@ -30,7 +30,7 @@ class PlayButton extends Component {
     const {
       audioControl,
       songAudio,
-      songName
+      songName,
     } = this.props;
 
     if(songAudio) {
@@ -55,6 +55,8 @@ class PlayButton extends Component {
   }
 
   render() {
+    // console.log('Is song playing ', this.props.songIsPlaying);
+
     return(
       <div>
         <div className="audio-button ">

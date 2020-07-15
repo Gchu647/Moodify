@@ -79,7 +79,7 @@ class App extends Component {
       }
     })
     .then( response => {
-      for (let i = 0; i < 45; i++) { // change song limit over here, or set it to response.data.items.length
+      for (let i = 0; i < 20; i++) { // change song limit over here, or set it to response.data.items.length
         songId.push(response.data.items[i].track.id)
       }
 
