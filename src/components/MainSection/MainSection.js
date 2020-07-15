@@ -103,7 +103,7 @@ class MainSection extends Component {
         return (
           <SongItem 
             songName={song.name}
-            songAudio={song.audio}
+            audioLink={song.audio}
             artists={song.artists}
             albumImage={song.album_image}
             moodScore={song.moodScore}
