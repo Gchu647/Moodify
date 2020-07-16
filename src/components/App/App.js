@@ -177,7 +177,7 @@ class App extends Component {
         <div className='left-side-section'>
           <MoodButtonGroup 
             appearance='subtle' 
-            color='green'
+            color='blue'
             happySort={this.happySort}
             sadSort={this.sadSort}
           />
