@@ -41,7 +41,7 @@ class MainSection extends Component {
 
     return axios({
       method: 'get',
-      url: `https://api.spotify.com/v1/search?q=${text_query}&type=track&market=US&limit=8`,
+      url: `https://api.spotify.com/v1/search?q=${text_query}&type=track&market=US&limit=12`,
       headers: {
         'Authorization': `Bearer ${this.props.token}`,
         'Content-Type': 'SearchApplication/json'

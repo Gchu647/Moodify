@@ -40,7 +40,6 @@ const SongItem = props => {
           <PlayButton 
             audioControl={audioControl} 
             songAudio={songAudio}
-            songIsPlaying={songIsPlaying}
             songName={songName}
             exterURL={exterURL}
           />
