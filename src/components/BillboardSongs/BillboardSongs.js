@@ -35,7 +35,7 @@ class BillboardSongs extends Component {
         return (
           <SongItem 
             songName={song.name}
-            songAudio={song.song_audio}
+            audioLink={song.song_audio}
             artists={song.artists}
             albumImage={song.album_image}
             moodScore={song.moodScore}

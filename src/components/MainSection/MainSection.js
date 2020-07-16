@@ -22,6 +22,7 @@ class MainSection extends Component {
       }],
       searchResults: false,
       isPlaying: false,
+      currAudio: null
     }
 
     this.showSearchResults = this.showSearchResults.bind(this);
@@ -127,13 +128,12 @@ class MainSection extends Component {
         return (
           <SongItem 
             songName={song.name}
-            songAudio={song.audio}
+            audioLink={song.audio}
             artists={song.artists}
             albumImage={song.album_image}
             moodScore={song.moodScore}
             exterURL={song.external_url}
             audioControl={this.audioControl}
-            songIsPlaying={this.state.isPlaying}
           />
         )
       });
@@ -160,7 +160,6 @@ class MainSection extends Component {
           sortOption={sortOption}
           moodRange={moodRange}
           audioControl={this.audioControl}
-          songIsPlaying={this.state.isPlaying}
         />)
         }
       </div>

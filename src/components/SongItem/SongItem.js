@@ -5,13 +5,12 @@ import PlayButton from '../PlayButton/PlayButton';
 const SongItem = props => {
   const {
     songName,
-    songAudio,
+    audioLink,
     artists, 
     albumImage,
     moodScore,
     exterURL, 
     audioControl,
-    songIsPlaying,
   } = props;
   
   let sectionStyle = {
@@ -39,8 +38,7 @@ const SongItem = props => {
         <div className='song-container-bottom-right'>
           <PlayButton 
             audioControl={audioControl} 
-            songAudio={songAudio}
-            songName={songName}
+            audioLink={audioLink}
             exterURL={exterURL}
           />
         </div>

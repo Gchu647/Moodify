@@ -19,12 +19,12 @@ class PlayButton extends Component {
   handleClick() {
     const {
       audioControl,
-      songAudio,
+      audioLink,
       songName,
     } = this.props;
 
-    if(songAudio) {
-      audioControl(songAudio, songName); // call on the audioControl in MainSection
+    if(audioLink) {
+      audioControl(audioLink); // call on the audioControl in MainSection
     } else {
       this.open('xs');
     }
