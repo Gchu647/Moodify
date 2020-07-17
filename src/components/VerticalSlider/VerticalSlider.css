@@ -17,3 +17,7 @@
 .mood-score-slider .rs-slider-graduator > ul > li.rs-slider-pass::before {
   border-color: #3498ff;
 }
+
+.mood-score-slider span {
+  color: #b3b3b3;    
+}
