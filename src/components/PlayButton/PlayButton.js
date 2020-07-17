@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { Modal, Button } from 'rsuite';
-import 'rsuite/dist/styles/rsuite-default.css';
 import './PlayButton.css';
+import NoPreviewModal from '../NoPreviewModal/NoPreviewModal';
 
 class PlayButton extends Component {
   constructor(props) {
@@ -30,11 +29,11 @@ class PlayButton extends Component {
   }
 
   close() {
-    this.setState({showModal: false});
+    this.setState({showModal: false}); // closes NoPreviewModal
   }
 
   open() {
-    this.setState({ showModal: true });
+    this.setState({ showModal: true }); // opens NoPreviewModal
   }
 
   render() {
@@ -44,18 +43,11 @@ class PlayButton extends Component {
         <div className="audio-button ">
           <i className="material-icons" onClick={this.handleClick}>play_arrow</i>
         </div>
-        <Modal size='xs' show={this.state.showModal} onHide={this.close}>
-          <Modal.Body>
-            <p>Spotify does not support previewing this song.</p>
-            <p>{this.props.exterURL && (<a href={this.props.exterURL} target="_blank">Click here </a>)} 
-             to listen to the song on Spotify</p>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.close} appearance="primary">
-              Close
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <NoPreviewModal 
+          showModal={this.state.showModal}
+          close={this.close}
+          exterURL={this.props.exterURL}
+        />
       </div>
     );
   }
