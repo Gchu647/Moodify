@@ -20,13 +20,12 @@ class PlayButton extends Component {
     const {
       audioControl,
       audioLink,
-      songName,
     } = this.props;
 
     if(audioLink) {
       audioControl(audioLink); // call on the audioControl in MainSection
     } else {
-      this.open('xs');
+      this.open();
     }
   }
 
