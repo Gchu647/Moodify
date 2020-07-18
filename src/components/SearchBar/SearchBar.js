@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import './SearchBar.css';
 
 class SearchBar extends Component {
@@ -75,23 +75,21 @@ class SearchBar extends Component {
   render() {
     const {
       onChange,
-      onClick,
       state: {
-        activeSuggestion,
-        showSuggestions,
         userInput
       }
     } = this;
 
     return (
-      <Fragment>
+      <div className='search-bar'>
+        <i className="material-icons search">search</i>
         <input
           type="text"
           onChange={onChange}
           placeholder='Search songs and people...'
           value={userInput}
         />
-      </Fragment>
+      </div>
     );
   }
 }
