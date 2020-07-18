@@ -86,7 +86,7 @@ class SearchBar extends Component {
         <input
           type="text"
           onChange={onChange}
-          placeholder='Search songs and people...'
+          placeholder='Search songs or artists...'
           value={userInput}
         />
       </div>
