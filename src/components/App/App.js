@@ -172,26 +172,31 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <div className='left-side-section'>
-          <MoodButtonGroup 
-            appearance='subtle' 
-            color='blue'
-            happySort={this.happySort}
-            sadSort={this.sadSort}
-          />
-          <VerticalSlider
-            setMoodRange={this.setMoodRange}
-          />
+      <div className='App'>
+        <div className='mobile-screen'>
+          <h3>Please view this application on a Desktop or Laptop</h3>
         </div>
-        <div className='main-section'>
-          <MainSection
-            songTracks={this.state.items}
-            sortOption={this.state.sortOption}
-            moodRange={this.state.moodRange}
-            token={this.state.token}
-            getMoodScores={this.getMoodScores}
-          />
+        <div className='Moodify'>
+          <div className='left-side-section'>
+            <MoodButtonGroup 
+              appearance='subtle' 
+              color='blue'
+              happySort={this.happySort}
+              sadSort={this.sadSort}
+            />
+            <VerticalSlider
+              setMoodRange={this.setMoodRange}
+            />
+          </div>
+          <div className='main-section'>
+            <MainSection
+              songTracks={this.state.items}
+              sortOption={this.state.sortOption}
+              moodRange={this.state.moodRange}
+              token={this.state.token}
+              getMoodScores={this.getMoodScores}
+            />
+          </div>
         </div>
       </div>
     );

@@ -1,8 +1,35 @@
 .App {
   min-height: 100vh;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   background-color: #131313;
+}
+
+.mobile-screen {
+  display: none;
+}
+
+.Moodify {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+@media only screen and (max-width: 720px) {
+  .mobile-screen {
+    display: inline-block;
+    width: 80%;
+    height: 80%;
+  }
+
+  .mobile-screen h3{
+    color: #ffffff;
+  }
+
+  .Moodify {
+    display: none;
+  }
 }
 
 .left-side-section {
