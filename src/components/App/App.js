@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import qs from 'qs';
 import axios from 'axios';
 import { headers, data } from '../../config';
-import logo from '../../logo.svg';
 import './App.css';
 import VerticalSlider from '../VerticalSlider/VerticalSlider';
 import MoodButtonGroup from '../MoodButtonGroup/MoodButtonGroup';
