@@ -18,7 +18,7 @@ const SongItem = props => {
     height: '191px',
     backgroundImage: `url(${albumImage})`,
     backgroundSize: 'contain',
-    backgroundColor: 'yellow'
+    backgroundColor: '#3498ff'
   };
 
   return (

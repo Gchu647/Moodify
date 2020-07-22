@@ -3,6 +3,7 @@ import axios from 'axios';
 import BillboardSongs from '../BillboardSongs/BillboardSongs';
 import SearchBar from '../SearchBar/SearchBar';
 import SongItem from '../SongItem/SongItem';
+import WelcomeModal from '../WelcomeModal/WelcomeModal';
 
 import './MainSection.css';
 
@@ -22,12 +23,18 @@ class MainSection extends Component {
       }],
       searchResults: false,
       isPlaying: false,
-      currAudio: null
+      currAudio: null,
+      showModal: false
     }
 
     this.showSearchResults = this.showSearchResults.bind(this);
     this.songSearch = this.songSearch.bind(this);
     this.audioControl = this.audioControl.bind(this);
+    this.close = this.close.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ showModal: true }); //opens WelcomeModal
   }
 
   showSearchResults(val) {
@@ -57,8 +64,6 @@ class MainSection extends Component {
           return elem.name;
         });
 
-        console.log('external url! ', song.external_urls.spotify);
-
         return {
           name: song.name,
           artists: artists.join(', '),
@@ -69,7 +74,6 @@ class MainSection extends Component {
         }
       })
 
-      console.log('search songs 2!', suggestions);
       return suggestions;
     })
     .then(suggestions => {
@@ -78,9 +82,6 @@ class MainSection extends Component {
       return songsWithMood;
     })
     .then(songsWithMood => {
-      // console.log('length hello: ', songsWithMood);
-      // console.log('length hello: ', songsWithMood.length);
-
       this.setState({ songSuggestions: songsWithMood });
     })
     .catch( err => console.log(err));
@@ -108,6 +109,10 @@ class MainSection extends Component {
     }
   }
 
+  close() {
+    this.setState({showModal: false}); // closes WelcomeModal
+  }
+
   render() {
     const { 
       songTracks,
@@ -116,9 +121,6 @@ class MainSection extends Component {
     } = this.props;
 
     const { songSuggestions } = this.state;
-
-    // console.log('songSuggestions: ', songSuggestions);
-    // console.log('suggestionLength: ', songSuggestions.length);
 
     let suggestionsListComponent;
 
@@ -162,6 +164,10 @@ class MainSection extends Component {
           audioControl={this.audioControl}
         />)
         }
+        <WelcomeModal 
+          showModal={this.state.showModal}
+          close={this.close}
+        />
       </div>
     )
   }
