@@ -19,9 +19,12 @@
   margin-left: 180px;
 }
 
-.rs-modal-content {
-  /* Add 15% topping to all modal pop ups */
-  margin-top: 15%;
+.rs-modal-dialog .rs-modal-content {
+  /* Add css to all modal pop ups */
+  margin-top: 12%;
+  padding: 30px;
+  font-size: 16px;
+  line-height: 2;
 }
 
 .github-corner:hover .octo-arm {
