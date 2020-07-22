@@ -1,8 +1,8 @@
 .welcome-modal-content {
-  padding: 20px 50px 50px 50px;
+  padding: 0px 50px 20px 50px;
 }
 
-.welcome-modal-content h1 {
+.welcome-modal-content h3 {
   font-family: 'Gotham', Helvetica, sans-serif;
   margin-bottom: 30px;
 }
