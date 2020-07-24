@@ -23,7 +23,6 @@ const SongItem = props => {
 
   return (
     <div className='song-container'>
-      {/* {console.log('songItem: ', songName, moodScore)} */}
       <div className='album-image' style={sectionStyle}>
 		    <div className='song-score-container'>
           <p className='song-score'>{moodScore}</p>
@@ -31,7 +30,6 @@ const SongItem = props => {
 	    </div>
       <div className='song-container-bottom'>
         <div className='song-container-bottom-left'>
-          {/* Make the songName shorter! */}
           <p className='song-title'>{songName}</p>
           <p className='song-artists'>{artists}</p>
         </div>
