@@ -34,17 +34,17 @@ class MainSection extends Component {
   }
 
   componentDidMount() {
-    this.setState({ showModal: true }); //opens WelcomeModal
+    this.setState({ showModal: true }); // opens WelcomeModal Component
   }
 
   showSearchResults(val) {
-    this.setState({ searchResults: val});
+    this.setState({ searchResults: val}); // when use types in something to the SearchBar, we show suggestionsListComponent
   }
 
-  songSearch(textQuery) {
+  songSearch(textQuery) { // send a text query to the Spotify API to look for song
     const text_query = textQuery;
 
-    if (!text_query) // return empty array if search result is empty (this might be breaking my code)
+    if (!text_query) // return empty array if search result is empty (this might be breaking my code
       return [];
 
     return axios({
@@ -56,8 +56,6 @@ class MainSection extends Component {
       }
     })
     .then( response => {
-      // console.log('search songs 1! ', response.data.tracks.items);
-
       let suggestions = response.data.tracks.items.map(song => { // fetch song name and artists
         // prepare the artist names
         const artists = song.artists.map( elem => {
@@ -89,7 +87,6 @@ class MainSection extends Component {
 
   audioControl(audioLink) {
     if (!this.state.isPlaying) { // condition 1: when no song is playing
-      console.log('no song isPlaying: ', this.state.isPlaying);
       this.setState({
         currAudio: new Audio(audioLink),
         isPlaying: true
@@ -97,11 +94,9 @@ class MainSection extends Component {
         this.state.currAudio.play(); // play song
       });
     } else if (this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) { // condition 2: stop when press the same song
-      console.log('stop same song: ', this.state.isPlaying);
       this.state.currAudio.pause(); // pause song
       this.setState({isPlaying: false});
     } else if (this.state.currAudio.currentSrc != audioLink && this.state.isPlaying) { // condition 3: switch to a new song
-      console.log('switch new song: ', this.state.isPlaying);
       this.state.currAudio.pause();
       this.setState({currAudio: new Audio(audioLink)}, () => {
         this.state.currAudio.play();
@@ -110,7 +105,7 @@ class MainSection extends Component {
   }
 
   close() {
-    this.setState({showModal: false}); // closes WelcomeModal
+    this.setState({showModal: false}); // closes WelcomeModal Component
   }
 
   render() {
