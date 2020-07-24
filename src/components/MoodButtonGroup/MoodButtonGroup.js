@@ -10,8 +10,6 @@ const MoodButtonGroup = props => {
     happySort,
     sadSort
   } = props;
-
-  console.log('MoodButtonGroup :', sadSort);
   
   return (
     <div className='MoodButtonGroup'>
@@ -19,7 +17,6 @@ const MoodButtonGroup = props => {
         <ButtonGroup>
           <Button appearance={appearance} color={color} onClick={happySort}>Happy</Button>
           <Button onClick={sadSort} appearance={appearance} color={color}>Sad</Button>
-          {/* <Button onClick={sadSort}> Open</Button> */}
         </ButtonGroup>
       </ButtonToolbar>
     </div>
