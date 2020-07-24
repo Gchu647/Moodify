@@ -37,13 +37,12 @@ class App extends Component {
   async componentDidMount() {
     // Fetch token using client credentials flow  authorization
     const _token = await this.getToken();
-    console.log('token :', _token); // there might be an token error
-
-    // Requst for Billboard Playst and use for loop to get Get track.name and track.id and put it in an object.
+    // Fetch the top 45 song track ids from the Billboard Hot 100 Chart
     const songIdList = await this.getBillboardSongId(_token);
+    // Use the song track ids to get the information for this.state.items
     const songTracks = await this.getAllSongTracks(_token, songIdList);
+    // Make another to get the valence score from Spotify API
     const songsWithMood = await this.getMoodScores(_token, songTracks);
-    // console.log('songs with mood: ', songsWithMood);
 
     this.setState({ 
       token: _token, 
@@ -51,7 +50,7 @@ class App extends Component {
     });
   }
 
-  getToken () {
+  getToken () { // Token is needed to access Spotify API
     return axios.post(
       'https://accounts.spotify.com/api/token',
       qs.stringify(data),
@@ -65,7 +64,6 @@ class App extends Component {
   }
 
   getBillboardSongId(token) {
-    console.log('get BillBoard Music!');
     const playlist_id = '6UeSakyzhiEt4NB3UAd6NQ'; // BillBoard Playlist ID
     const songId = [];
 
@@ -88,7 +86,6 @@ class App extends Component {
   }
   
   getAllSongTracks(token, songIdList) {
-    console.log('getAllSongTracks!');
     let songTracks = songIdList.map(songId => {
       return axios({
         method: 'get',
@@ -98,21 +95,18 @@ class App extends Component {
           'Content-Type': 'application/json'
         }
       })
-      .then( response => {
-        // console.log('external urls: ' + response.data.external_urls.spotify);
-        // console.log('track preview_url2' + response.data.preview_url);
-         
+      .then( response => {         
         // prepare the artist names
         let artists = response.data.album.artists.map( elem => {
           return elem.name
         });
 
-        if(response.data.preview_url) {
+        if(response.data.preview_url) { // only store songs with a audio preview
           let songItem = {
             name: response.data.name,
             artists: artists.join(', '),
             album_image: response.data.album.images[1].url,
-            song_audio: response.data.preview_url, //Notes: turn into ino new Audio later
+            song_audio: response.data.preview_url,
             id: songId
           }
 
@@ -134,7 +128,6 @@ class App extends Component {
   }
 
   getMoodScores(token, songs) {
-    console.log('getMoodScores!');
     let requestFeatures = songs.map(songTrack => {
       return axios({
         method: 'get',
@@ -158,11 +151,11 @@ class App extends Component {
     })
   }
 
-  happySort() { // label sortOption for sorting in BllboardSongs
+  happySort() { // label sortOption for sorting in the BillboardSongs Component 
     this.setState({sortOption: 'happy'});
   }
 
-  sadSort() { // label sortOption for sorting in BllboardSongs
+  sadSort() { // label sortOption for sorting in the BillboardSongs Component 
     this.setState({sortOption: 'sad'});
   }
 
