@@ -34,7 +34,9 @@ class MainSection extends Component {
   }
 
   componentDidMount() {
-    this.setState({ showModal: true }); // opens WelcomeModal Component
+    if (window.innerWidth >= 720) { // only show WelcomeModal, if screen is bigger than 720px
+      this.setState({ showModal: true });
+    }
   }
 
   showSearchResults(val) {
