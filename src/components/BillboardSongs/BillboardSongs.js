@@ -31,31 +31,33 @@ class BillboardSongs extends Component {
       })
       .map( song => {
         return (
-          <SongItem 
-            songName={song.name}
-            audioLink={song.song_audio}
-            artists={song.artists}
-            albumImage={song.album_image}
-            moodScore={song.moodScore}
-            exterURL={null} // All BillBoardSongs have song previews, so no need exterURL
-            audioControl={this.props.audioControl}
-            songIsPlaying={this.props.songIsPlaying}
-          />
+          <li key={song.id}>
+            <SongItem 
+              songName={song.name}
+              audioLink={song.song_audio}
+              artists={song.artists}
+              albumImage={song.album_image}
+              moodScore={song.moodScore}
+              exterURL={null} // All BillBoardSongs have song previews, so no need exterURL
+              audioControl={this.props.audioControl}
+              songIsPlaying={this.props.songIsPlaying}
+            />
+          </li>
         )
       })
     );
 
     if(sortOption === 'happy') { // reverse the order to descend if 'happy'
       return (
-        <div className='BillboardSongs'>
+        <ul className='BillboardSongs'>
           {ascendSongs.reverse()}
-        </div>
+        </ul>
       )
     } else if (sortOption === 'sad') { // just return ascendSongs if 'sad'
       return (
-        <div className='BillboardSongs'>
+        <ul className='BillboardSongs'>
           {ascendSongs}
-        </div>
+        </ul>
       )
     }
   }

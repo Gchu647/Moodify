@@ -2,6 +2,7 @@
   color: white;
   display: flex;
   flex-flow: row wrap;
+  list-style-type:none;
 }
 
 .no-suggestions {

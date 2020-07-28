@@ -98,7 +98,7 @@ class MainSection extends Component {
     } else if (this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) { // condition 2: stop when press the same song
       this.state.currAudio.pause(); // pause song
       this.setState({isPlaying: false});
-    } else if (this.state.currAudio.currentSrc != audioLink && this.state.isPlaying) { // condition 3: switch to a new song
+    } else if (this.state.currAudio.currentSrc !== audioLink && this.state.isPlaying) { // condition 3: switch to a new song
       this.state.currAudio.pause();
       this.setState({currAudio: new Audio(audioLink)}, () => {
         this.state.currAudio.play();
@@ -125,15 +125,17 @@ class MainSection extends Component {
       suggestionsListComponent = songSuggestions.map(
         song => {
         return (
-          <SongItem 
-            songName={song.name}
-            audioLink={song.audio}
-            artists={song.artists}
-            albumImage={song.album_image}
-            moodScore={song.moodScore}
-            exterURL={song.external_url}
-            audioControl={this.audioControl}
-          />
+          <li key={song.id}>
+            <SongItem 
+              songName={song.name}
+              audioLink={song.audio}
+              artists={song.artists}
+              albumImage={song.album_image}
+              moodScore={song.moodScore}
+              exterURL={song.external_url}
+              audioControl={this.audioControl}
+            />
+          </li>
         )
       });
     } else {
@@ -150,9 +152,9 @@ class MainSection extends Component {
           songSearch={this.songSearch}
           showSearchResults={this.showSearchResults}
         />
-        <div className='search-results'>
+        <ul className='search-results'>
           {this.state.searchResults && suggestionsListComponent}
-        </div>
+        </ul>
         {!this.state.searchResults && 
         (<BillboardSongs 
           songTracks={songTracks}
