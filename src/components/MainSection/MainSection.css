@@ -6,7 +6,9 @@
   padding: 0px;
 }
 
-.no-suggestions {
+/* This css is also used in BillboardSongs  */
+.no-suggestions { 
   color: #999;
   padding: 0.5rem;
+  font-size: 18px;
 }

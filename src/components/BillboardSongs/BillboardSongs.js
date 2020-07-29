@@ -24,6 +24,14 @@ class BillboardSongs extends Component {
   sortSongItems(sortOption) { // sort the SongItems by Happy or Sad
     const filteredSongs = this.songTrackRange(this.props.moodRange);
 
+    if (filteredSongs.length < 1) { // stop the function when there are no filtered songs
+      return (
+        <div className="no-suggestions">
+          <em>No suggestions, you're on your own!</em>
+        </div>
+      )
+    }
+
     let ascendSongs = ( // sort songs from low moodScore to high
       filteredSongs
       .sort((songA, songB) => {
