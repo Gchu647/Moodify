@@ -7,7 +7,8 @@ const SongItem = props => {
     song,
     exterURL, 
     audioControl,
-    songIsPlaying
+    songIsPlaying,
+    songIdPlaying
   } = props;
   
   let sectionStyle = {
@@ -37,6 +38,7 @@ const SongItem = props => {
             audioLink={song.song_audio}
             exterURL={exterURL}
             songIsPlaying={songIsPlaying}
+            songIdPlaying={songIdPlaying}
             songIdClicked={song.id}
             // songIdPlaying={songIdPlaying}
           />

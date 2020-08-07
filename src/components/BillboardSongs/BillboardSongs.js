@@ -38,6 +38,7 @@ class BillboardSongs extends Component {
         return songA.moodScore - songB.moodScore
       })
       .map( song => {
+        console.log('Billboard: ' + this.props.songIsPlaying);
         return (
           <li key={song.id}>
             <SongItem
@@ -45,6 +46,7 @@ class BillboardSongs extends Component {
               exterURL={null} // All BillBoardSongs have song previews, so no need exterURL
               audioControl={this.props.audioControl}
               songIsPlaying={this.props.songIsPlaying}
+              songIdPlaying={this.props.songIdPlaying}
             />
           </li>
         )

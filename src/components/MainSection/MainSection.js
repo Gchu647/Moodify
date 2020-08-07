@@ -23,6 +23,7 @@ class MainSection extends Component {
       }],
       searchResults: false,
       isPlaying: false,
+      songIdPlaying: '',
       currAudio: null,
       showModal: false
     }
@@ -92,7 +93,8 @@ class MainSection extends Component {
     if (!this.state.isPlaying) { // condition 1: when no song is playing
       this.setState({
         currAudio: new Audio(audioLink),
-        isPlaying: true
+        isPlaying: true,
+        songIdPlaying: songIdClicked
       }, () =>{        
         this.state.currAudio.play(); // play song
       });
@@ -101,7 +103,10 @@ class MainSection extends Component {
       this.setState({isPlaying: false});
     } else if (this.state.currAudio.currentSrc !== audioLink && this.state.isPlaying) { // condition 3: switch to a new song
       this.state.currAudio.pause();
-      this.setState({currAudio: new Audio(audioLink)}, () => {
+      this.setState({
+        currAudio: new Audio(audioLink),
+        songIdPlaying: songIdClicked
+      }, () => {
         this.state.currAudio.play();
       });
     }
@@ -120,7 +125,8 @@ class MainSection extends Component {
 
     const { 
       songSuggestions,
-      isPlaying
+      isPlaying,
+      songIdPlaying
     } = this.state;
 
     let suggestionsListComponent;
@@ -135,6 +141,7 @@ class MainSection extends Component {
                 exterURL={song.external_url}
                 audioControl={this.audioControl}
                 songIsPlaying={isPlaying}
+                songIdPlaying={songIdPlaying}
               />
             </li>
           )
@@ -162,6 +169,8 @@ class MainSection extends Component {
           sortOption={sortOption}
           moodRange={moodRange}
           audioControl={this.audioControl}
+          songIsPlaying={isPlaying}
+          songIdPlaying={songIdPlaying}
         />)
         }
         <WelcomeModal 
