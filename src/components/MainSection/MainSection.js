@@ -87,7 +87,8 @@ class MainSection extends Component {
     .catch( err => console.log(err));
   }
 
-  audioControl(audioLink) {
+  audioControl(audioLink, songIdClicked) {
+    console.log('audioControl: ' + songIdClicked);
     if (!this.state.isPlaying) { // condition 1: when no song is playing
       this.setState({
         currAudio: new Audio(audioLink),
@@ -127,17 +128,16 @@ class MainSection extends Component {
     if (songSuggestions && songSuggestions.length) { // if songSuggestions is not falsy, and the length is not 0
       suggestionsListComponent = songSuggestions.map(
         song => {
-          console.log('mainsection, ' + song.external_url);
-        return (
-          <li key={song.id}>
-            <SongItem 
-              song={song}
-              exterURL={song.external_url}
-              audioControl={this.audioControl}
-              songIsPlaying={isPlaying}
-            />
-          </li>
-        )
+          return (
+            <li key={song.id}>
+              <SongItem 
+                song={song}
+                exterURL={song.external_url}
+                audioControl={this.audioControl}
+                songIsPlaying={isPlaying}
+              />
+            </li>
+          )
       });
     } else {
       suggestionsListComponent = (

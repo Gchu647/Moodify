@@ -36,6 +36,9 @@ const SongItem = props => {
             audioControl={audioControl} 
             audioLink={song.song_audio}
             exterURL={exterURL}
+            songIsPlaying={songIsPlaying}
+            songIdClicked={song.id}
+            // songIdPlaying={songIdPlaying}
           />
         </div>
       </div>
