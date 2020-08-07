@@ -117,7 +117,10 @@ class MainSection extends Component {
       moodRange
     } = this.props;
 
-    const { songSuggestions } = this.state;
+    const { 
+      songSuggestions,
+      isPlaying
+    } = this.state;
 
     let suggestionsListComponent;
 
@@ -127,13 +130,10 @@ class MainSection extends Component {
         return (
           <li key={song.id}>
             <SongItem 
-              songName={song.name}
-              audioLink={song.audio}
-              artists={song.artists}
-              albumImage={song.album_image}
-              moodScore={song.moodScore}
+              song={song}
               exterURL={song.external_url}
               audioControl={this.audioControl}
+              songIsPlaying={isPlaying}
             />
           </li>
         )

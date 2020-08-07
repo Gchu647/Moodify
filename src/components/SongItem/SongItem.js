@@ -4,39 +4,37 @@ import PlayButton from '../PlayButton/PlayButton';
 
 const SongItem = props => {
   const {
-    songName,
-    audioLink,
-    artists, 
-    albumImage,
-    moodScore,
+    song,
     exterURL, 
     audioControl,
+    songIsPlaying
   } = props;
   
   let sectionStyle = {
     width: '100%',
     height: '191px',
-    backgroundImage: `url(${albumImage})`,
+    backgroundImage: `url(${song.album_image})`,
     backgroundSize: 'contain',
-    backgroundColor: '#3498ff'
+    backgroundColor: '#3498ff',
+    marginBottom: '10px'
   };
 
   return (
     <div className='song-container'>
       <div className='album-image' style={sectionStyle}>
 		    <div className='song-score-container'>
-          <p className='song-score'>{moodScore}</p>
+          <p className='song-score'>{song.moodScore}</p>
 		    </div>
 	    </div>
       <div className='song-container-bottom'>
         <div className='song-container-bottom-left'>
-          <p className='song-title'>{songName}</p>
-          <p className='song-artists'>{artists}</p>
+          <p className='song-title'>{song.name}</p>
+          <p className='song-artists'>{song.artists}</p>
         </div>
         <div className='song-container-bottom-right'>
           <PlayButton 
             audioControl={audioControl} 
-            audioLink={audioLink}
+            audioLink={song.song_audio}
             exterURL={exterURL}
           />
         </div>
