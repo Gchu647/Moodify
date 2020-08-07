@@ -17,8 +17,8 @@
 @media only screen and (max-width: 720px) {
   .mobile-screen {
     display: inline-block;
-    width: 80%;
-    height: 80%;
+    width: 80vw;
+    margin: 40px 0px 0px 20px;
   }
 
   .mobile-screen h3{
