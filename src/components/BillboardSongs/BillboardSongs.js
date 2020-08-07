@@ -42,11 +42,6 @@ class BillboardSongs extends Component {
           <li key={song.id}>
             <SongItem
               song={song} 
-              // songName={song.name}
-              // audioLink={song.song_audio}
-              // artists={song.artists}
-              // albumImage={song.album_image}
-              // moodScore={song.moodScore}
               exterURL={null} // All BillBoardSongs have song previews, so no need exterURL
               audioControl={this.props.audioControl}
               songIsPlaying={this.props.songIsPlaying}

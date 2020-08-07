@@ -16,7 +16,7 @@ class MainSection extends Component {
         name: '',
         artists: '',
         album_image: null,
-        audio: null,
+        song_audio: null,
         moodScore: null,
         id: null,
         external_url: null
@@ -68,7 +68,7 @@ class MainSection extends Component {
           name: song.name,
           artists: artists.join(', '),
           album_image: song.album.images[1].url,
-          audio: song.preview_url,
+          song_audio: song.preview_url,
           id: song.id,
           external_url: song.external_urls.spotify
         }
@@ -127,6 +127,7 @@ class MainSection extends Component {
     if (songSuggestions && songSuggestions.length) { // if songSuggestions is not falsy, and the length is not 0
       suggestionsListComponent = songSuggestions.map(
         song => {
+          console.log('mainsection, ' + song.external_url);
         return (
           <li key={song.id}>
             <SongItem 
