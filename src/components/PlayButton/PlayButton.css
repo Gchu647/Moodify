@@ -3,5 +3,6 @@
   background-color: #3498ff;
   padding: 6px;
   border-radius: 50%;
+  line-height: 0;
   cursor: pointer;
 }
