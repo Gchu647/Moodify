@@ -38,7 +38,6 @@ class BillboardSongs extends Component {
         return songA.moodScore - songB.moodScore
       })
       .map( song => {
-        console.log('Billboard: ' + this.props.songIsPlaying);
         return (
           <li key={song.id}>
             <SongItem

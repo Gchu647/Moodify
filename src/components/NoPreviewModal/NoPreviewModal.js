@@ -13,7 +13,7 @@ const NoPreviewModal = props => {
     <Modal size='xs' show={showModal} onHide={close}>
       <Modal.Body>
         <p>Spotify does not support previewing this song.</p>
-        <p>{ exterURL && (<a href={exterURL} target="_blank">Click here </a>) } 
+        <p>{ exterURL && (<a href={exterURL} target='_blank' rel='noopener noreferrer'>Click here </a>) } 
           to listen to the song on Spotify</p>
       </Modal.Body>
       <Modal.Footer>

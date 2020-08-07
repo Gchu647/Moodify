@@ -89,7 +89,6 @@ class MainSection extends Component {
   }
 
   audioControl(audioLink, songIdClicked) {
-    console.log('audioControl: ' + songIdClicked);
     if (!this.state.isPlaying) { // condition 1: when no song is playing
       this.setState({
         currAudio: new Audio(audioLink),
