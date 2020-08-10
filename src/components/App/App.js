@@ -5,7 +5,7 @@ import { headers, data } from '../../config';
 import './App.css';
 import VerticalSlider from '../VerticalSlider/VerticalSlider';
 import MoodButtonGroup from '../MoodButtonGroup/MoodButtonGroup';
-import MainSection from '../MainSection/MainSection';
+import MainSectionHook from '../MainSection/MainSectionHook';
 
 const App = () => {
   /******** State Variables ********/
@@ -15,7 +15,7 @@ const App = () => {
     artists: '',
     album_image: '',
     song_audio: null,
-    moodScore: '', // a score to show if the song is sad or happy
+    moodScore: 0, // a score to show if the song is sad or happy
     id: ''
   }]);
   const [sortOption, setSortOption] = useState('happy');
@@ -172,7 +172,7 @@ const App = () => {
           />
         </div>
         <div className='main-section'>
-          <MainSection
+          <MainSectionHook
             songTracks={items}
             sortOption={sortOption}
             moodRange={moodRange}
