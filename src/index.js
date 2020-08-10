@@ -2,12 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App/App';
-import AppHooks from './components/App/AppHooks';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppHooks />
+    <App/>
   </React.StrictMode>,
   document.getElementById('root')
 );

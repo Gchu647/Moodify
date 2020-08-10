@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { useState, useEffect } from 'react';
 import qs from 'qs';
 import axios from 'axios';
 import { headers, data } from '../../config';
@@ -7,50 +7,41 @@ import VerticalSlider from '../VerticalSlider/VerticalSlider';
 import MoodButtonGroup from '../MoodButtonGroup/MoodButtonGroup';
 import MainSection from '../MainSection/MainSection';
 
-class App extends Component {
-  constructor() {
-    super();
+const App = () => {
+  /******** State Variables ********/
+  const [token, setToken] = useState('');
+  const [items, setItems] = useState([{
+    name: '', // name of the song
+    artists: '',
+    album_image: '',
+    song_audio: null,
+    moodScore: '', // a score to show if the song is sad or happy
+    id: ''
+  }]);
+  const [sortOption, setSortOption] = useState('happy');
+  const [moodRange, setMoodRange] = useState([0, 100]);
 
-    this.state = {
-      token: null,
-      items: [{
-        name: null,
-        artists: null,
-        album_image: null,
-        song_audio: null,
-        moodScore: null,
-        id: null
-      }],
-      sortOption: 'happy',
-      moodRange: [0, 100],
-    };
+  /******** UseEffect ********/
+  useEffect(()=> {
+    async function fetchAPI() {
+      // Fetch token using client credentials flow  authorization
+      const _token = await fetchToken();
+      // Fetch the top 45 song track ids from the Billboard Hot 100 Chart
+      const songIdList = await getBillboardSongsId(_token);
+      // Use the song track ids to get the information for this.state.items
+      const songTracks = await getAllSongTracks(_token, songIdList);
+      // Make another to get the valence score from Spotify API
+      const songsWithMood = await getMoodScores(_token, songTracks);
+  
+      setToken(_token);
+      setItems(songsWithMood);
+    }
 
-    this.fetchToken = this.fetchToken.bind(this);
-    this.getBillboardSongsId = this.getBillboardSongsId.bind(this);
-    this.getAllSongTracks = this.getAllSongTracks.bind(this);
-    this.getMoodScores = this.getMoodScores.bind(this);
-    this.happySort = this.happySort.bind(this);
-    this.sadSort = this.sadSort.bind(this);
-    this.setMoodRange = this.setMoodRange.bind(this);
-  }
+    fetchAPI();
+  }, []);
 
-  async componentDidMount() {
-    // Fetch token using client credentials flow  authorization
-    const _token = await this.fetchToken();
-    // Fetch the top 45 song track ids from the Billboard Hot 100 Chart
-    const songIdList = await this.getBillboardSongsId(_token);
-    // Use the song track ids to get the information for this.state.items
-    const songTracks = await this.getAllSongTracks(_token, songIdList);
-    // Make another to get the valence score from Spotify API
-    const songsWithMood = await this.getMoodScores(_token, songTracks);
-
-    this.setState({ 
-      token: _token, 
-      items: songsWithMood
-    });
-  }
-
-  fetchToken () { // Token is needed to access Spotify API
+  /******** Functions ********/
+  const fetchToken = () => { // Token is needed to access Spotify API
     return axios.post(
       'https://accounts.spotify.com/api/token',
       qs.stringify(data),
@@ -63,7 +54,7 @@ class App extends Component {
     .catch( err => console.log(err));
   }
 
-  getBillboardSongsId(token) {
+  const getBillboardSongsId = (token) => {
     const playlist_id = '6UeSakyzhiEt4NB3UAd6NQ'; // BillBoard Playlist ID
     const songId = [];
 
@@ -85,7 +76,7 @@ class App extends Component {
     .catch( err => console.log(err));
   }
   
-  getAllSongTracks(token, songIdList) {
+  const getAllSongTracks = (token, songIdList) => {
     let songTracks = songIdList.map(songId => {
       return axios({
         method: 'get',
@@ -127,7 +118,7 @@ class App extends Component {
     })
   }
 
-  getMoodScores(token, songs) {
+  const getMoodScores = (token, songs) => {
     let requestFeatures = songs.map(songTrack => {
       return axios({
         method: 'get',
@@ -151,49 +142,47 @@ class App extends Component {
     })
   }
 
-  happySort() { // label sortOption for sorting in the BillboardSongs Component 
-    this.setState({sortOption: 'happy'});
+  const happySort = () => { // label sortOption for sorting in the BillboardSongs Component 
+    setSortOption('happy');
   }
 
-  sadSort() { // label sortOption for sorting in the BillboardSongs Component 
-    this.setState({sortOption: 'sad'});
+  const sadSort = () => { // label sortOption for sorting in the BillboardSongs Component 
+    setSortOption('sad');
   }
 
-  setMoodRange(arr) { 
-    this.setState({moodRange: arr});
+  const callSetMoodRange = (range) => { 
+    setMoodRange(range);
   }
 
-  render() {
-    return (
-      <div className='App'>
-        <div className='mobile-screen'>
-          <h3>Please view this application on a Desktop or Laptop</h3>
+  return (
+    <div className='App'>
+      <div className='mobile-screen'>
+        <h3>Please view this application on a Desktop or Laptop</h3>
+      </div>
+      <div className='Moodify'>
+        <div className='left-side-section'>
+          <MoodButtonGroup 
+            appearance='subtle' 
+            color='blue'
+            happySort={happySort}
+            sadSort={sadSort}
+          />
+          <VerticalSlider
+            setMoodRange={callSetMoodRange}
+          />
         </div>
-        <div className='Moodify'>
-          <div className='left-side-section'>
-            <MoodButtonGroup 
-              appearance='subtle' 
-              color='blue'
-              happySort={this.happySort}
-              sadSort={this.sadSort}
-            />
-            <VerticalSlider
-              setMoodRange={this.setMoodRange}
-            />
-          </div>
-          <div className='main-section'>
-            <MainSection
-              songTracks={this.state.items}
-              sortOption={this.state.sortOption}
-              moodRange={this.state.moodRange}
-              token={this.state.token}
-              getMoodScores={this.getMoodScores}
-            />
-          </div>
+        <div className='main-section'>
+          <MainSection
+            songTracks={items}
+            sortOption={sortOption}
+            moodRange={moodRange}
+            token={token}
+            getMoodScores={getMoodScores}
+          />
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;
