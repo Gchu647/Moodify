@@ -1,79 +1,58 @@
-import React, { Component } from "react";
+import React, {useState} from 'react';
 import './SearchBar.css';
 
-class SearchBar extends Component {
-  constructor(props) {
-    super(props);
+const SearchBar = (props) => {
+  /******** State Variables ********/
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [userInput, setUserInput] = useState('');
+  const [storeDelay, setStoreDelay] = useState(null);
 
-    this.state = {
-      // Whether or not the suggestion list is shown
-      showSuggestions: false,
-      // What the user has entered
-      userInput: '',
-      // store the delaySearch function
-      storeDelay: null,
-    };
+  /******** Props Variables ********/
+  const {
+    songSearch,
+    showSearchResults 
+  } = props;
 
-    this.delaySearch = this.delaySearch.bind(this);
-  }
-
-  // Event fired when the input value is changed
-  onChange = e => {
-    const userInput = e.currentTarget.value;
-    const self = this; // the this in storeDelay is not binded
+  /******** Functions ********/
+  const onChange = (e) => { // Event fired when the input value is changed
+    const input = e.currentTarget.value;
 
     // this stops delaySearch if you keep typing in input in a given time frame
-    clearTimeout(self.state.storeDelay);
+    clearTimeout(storeDelay);
     
-    if (userInput) { // do a user search if userInput is not empty
-      self.setState({
-        userInput: userInput,
-        storeDelay: setTimeout(function() {
-          self.delaySearch(userInput); // do a delaySearch after 0.5 second
-        }, 500)
-      });
-    } else {
-      this.setState({ 
-        userInput: '',
-        showSuggestions: false 
-      });
+    if (input) { // do a user search if input is not empty
+      setUserInput(input);
 
-      this.props.showSearchResults(false);
+      setStoreDelay(setTimeout(function() {
+        delaySearch(input); // do a delaySearch after 0.5 second
+      }, 500));
+    } else {
+      setUserInput('');
+      setShowSuggestions(false);
+      showSearchResults(false);
     }
   }
 
-  delaySearch(txt) { // search for songs using the userInput
-    const { songSearch } = this.props;
-
+  const delaySearch = (txt) => { // search for songs using the userInput
     songSearch(txt) // give it userInput
     .then(() => { // gives back songSuggestions based on your search
-      this.setState({showSuggestions: true});
-
-      this.props.showSearchResults(true);
+      setShowSuggestions(true);
+      showSearchResults(true);
     })
     .catch( err => console.log(err));
   }
 
-  render() {
-    const {
-      onChange,
-      state: {
-        userInput
-      }
-    } = this;
-
-    return (
-      <div className='search-bar'>
-        <i className="material-icons search">search</i>
-        <input
-          type="text"
-          onChange={onChange}
-          placeholder='Search songs or artists...'
-          value={userInput}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className='search-bar'>
+      <i className="material-icons search">search</i>
+      <input
+        type="text"
+        onChange={onChange}
+        placeholder='Search songs or artists...'
+        value={userInput}
+      />
+    </div>
+  );
 }
 
 export default SearchBar;
