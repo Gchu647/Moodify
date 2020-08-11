@@ -6,8 +6,6 @@ class SearchBar extends Component {
     super(props);
 
     this.state = {
-      // The active selection's index
-      activeSuggestion: 0,
       // Whether or not the suggestion list is shown
       showSuggestions: false,
       // What the user has entered
@@ -49,28 +47,12 @@ class SearchBar extends Component {
 
     songSearch(txt) // give it userInput
     .then(() => { // gives back songSuggestions based on your search
-      this.setState({
-        activeSuggestion: 0,
-        showSuggestions: true
-      });
+      this.setState({showSuggestions: true});
 
       this.props.showSearchResults(true);
     })
     .catch( err => console.log(err));
   }
-
-  // Event fired when the user clicks on a suggestion
-  onClick = e => {
-    const newInput = e.currentTarget.getElementsByTagName('p')[0].innerText;
-
-    // Update the user input and reset the rest of the state
-    this.setState({
-      activeSuggestion: 0,
-      filteredSuggestions: [],
-      showSuggestions: false,
-      userInput: newInput
-    });
-  };
 
   render() {
     const {
