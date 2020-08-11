@@ -14,9 +14,10 @@ Moodify recommends you popular songs from the [Billboard Hot 100](https://www.bi
 
 ## Technologies
 - React JS
+- React Hooks
+- React Suite
 - Axios
 - Spotify API
-- React Suite
 
 ## Installation
 - To run this app on your own computer, you need have/create a [Spotify](https://www.spotify.com/) user account.
