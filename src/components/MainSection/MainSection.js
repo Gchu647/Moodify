@@ -23,6 +23,14 @@ const MainSection = (props) => {
   const [currAudio, setCurrAudio] = useState(null); // temporary store the current song audio that is clicked to play
   const [showModal, setShowModal] = useState(false);
 
+  /******** Props Variables ********/
+  const {
+    token, 
+    songTracks,
+    sortOption,
+    moodRange
+  } = props;
+
   /******** UseEffect ********/
   useEffect(() => {
     if (window.innerWidth >= 720) { // only show WelcomeModal, if screen is bigger than 720px
@@ -51,7 +59,7 @@ const MainSection = (props) => {
       method: 'get',
       url: `https://api.spotify.com/v1/search?q=${text_query}&type=track&market=US&limit=12`,
       headers: {
-        'Authorization': `Bearer ${props.token}`,
+        'Authorization': `Bearer ${token}`,
         'Content-Type': 'SearchApplication/json'
       }
     })
@@ -105,13 +113,6 @@ const MainSection = (props) => {
   const close = () => {
     setShowModal(false); // closes WelcomeModal Component
   }
-
-  /******** Props Variables ********/
-  const { 
-    songTracks,
-    sortOption,
-    moodRange
-  } = props;
 
   let suggestionsListComponent;
 

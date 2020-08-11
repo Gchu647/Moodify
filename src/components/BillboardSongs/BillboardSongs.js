@@ -1,18 +1,22 @@
-import React, {Component} from 'react';
+import React from 'react';
 import "./BillboardSongs.css";
 import SongItem from '../SongItem/SongItem';
 
-class BillboardSongs extends Component {
-  constructor(props) {
-    super(props);
+const BillboardSongs = (props) => {
+  /******** Props Variables ********/
+  const {
+    songTracks,
+    moodRange,
+    audioControl,
+    songIsPlaying,
+    songIdPlaying,
+    sortOption
+  } = props;
 
-    this.songTrackRange = this.songTrackRange.bind(this);
-    this.sortSongItems = this.sortSongItems.bind(this);
-  }
-
-  songTrackRange(moodRange) { // filters out the song tracks based on moodScore    
+  /******** Functions ********/
+  const songTrackRange = (moodRange) => {
     const filteredSongs = (
-      this.props.songTracks
+      songTracks
       .filter(song => {
         return (song.moodScore >= moodRange[0] && song.moodScore <= moodRange[1])
       })
@@ -21,8 +25,8 @@ class BillboardSongs extends Component {
     return filteredSongs;
   }
 
-  sortSongItems(sortOption) { // sort the SongItems by Happy or Sad
-    const filteredSongs = this.songTrackRange(this.props.moodRange);
+  const sortSongItems = (sortOption) => { // sort the SongItems by Happy or Sad
+    const filteredSongs = songTrackRange(moodRange);
 
     if (filteredSongs.length < 1) { // stop the function when there are no filtered songs
       return (
@@ -43,9 +47,9 @@ class BillboardSongs extends Component {
             <SongItem
               song={song} 
               exterURL={null} // All BillBoardSongs have song previews, so no need exterURL
-              audioControl={this.props.audioControl}
-              songIsPlaying={this.props.songIsPlaying}
-              songIdPlaying={this.props.songIdPlaying}
+              audioControl={audioControl}
+              songIsPlaying={songIsPlaying}
+              songIdPlaying={songIdPlaying}
             />
           </li>
         )
@@ -67,13 +71,11 @@ class BillboardSongs extends Component {
     }
   }
 
-  render() {
-    return (
-      <div>
-        {this.sortSongItems(this.props.sortOption)}
-      </div>
-    )
-  }
+  return (
+    <div>
+      {sortSongItems(sortOption)}
+    </div>
+  )
 }
 
 export default BillboardSongs;
