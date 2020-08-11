@@ -1,50 +1,47 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import BillboardSongs from '../BillboardSongs/BillboardSongs';
 import SearchBar from '../SearchBar/SearchBar';
 import SongItem from '../SongItem/SongItem';
 import WelcomeModal from '../WelcomeModal/WelcomeModal';
-
 import './MainSection.css';
 
-class MainSection extends Component {
-  constructor(props) {
-    super(props);
+const MainSection = (props) => {
+  /******** State Variables ********/
+  const [songSuggestions, setSongSuggestions] = useState([{
+    name: '',
+    artists: '',
+    album_image: '',
+    song_audio: null,
+    moodScore: 0,
+    id: '',
+    external_url: ''
+  }]);
+  const [searchResults, setSearchResults] = useState(false); // indicating if there is search results or not
+  const [isPlaying, setIsPlaying] = useState(false); // indicate if any song is playing
+  const [songIdPlaying, setSongIdPlaying] = useState(''); // track which song id is playing
+  const [currAudio, setCurrAudio] = useState(null); // temporary store the current song audio that is clicked to play
+  const [showModal, setShowModal] = useState(false);
 
-    this.state = {
-      songSuggestions: [{
-        name: '',
-        artists: '',
-        album_image: null,
-        song_audio: null,
-        moodScore: null,
-        id: null,
-        external_url: null
-      }],
-      searchResults: false,
-      isPlaying: false,
-      songIdPlaying: '',
-      currAudio: null,
-      showModal: false
-    }
-
-    this.showSearchResults = this.showSearchResults.bind(this);
-    this.songSearch = this.songSearch.bind(this);
-    this.audioControl = this.audioControl.bind(this);
-    this.close = this.close.bind(this);
-  }
-
-  componentDidMount() {
+  /******** UseEffect ********/
+  useEffect(() => {
     if (window.innerWidth >= 720) { // only show WelcomeModal, if screen is bigger than 720px
-      this.setState({ showModal: true });
+      setShowModal(true);
     }
+  }, []);
+
+  useEffect(() => { // this is used as a callback for when I make change to currAudio in audioControl function
+    if(isPlaying) {
+      currAudio.play();
+    }
+  }, [currAudio]);
+
+  /******** Functions ********/
+  const showSearchResults = (bool) => {
+    setSearchResults(bool); // when we types in something to the SearchBar, we show suggestionsListComponent
   }
 
-  showSearchResults(val) {
-    this.setState({ searchResults: val}); // when use types in something to the SearchBar, we show suggestionsListComponent
-  }
-
-  songSearch(textQuery) { // send a text query to the Spotify API to look for song
+  const songSearch = (textQuery) => { // send a text query to the Spotify API to look for song
     const text_query = textQuery;
 
     if (!text_query) // return empty array if search result is empty (this might be breaking my code
@@ -54,7 +51,7 @@ class MainSection extends Component {
       method: 'get',
       url: `https://api.spotify.com/v1/search?q=${text_query}&type=track&market=US&limit=12`,
       headers: {
-        'Authorization': `Bearer ${this.props.token}`,
+        'Authorization': `Bearer ${props.token}`,
         'Content-Type': 'SearchApplication/json'
       }
     })
@@ -78,57 +75,45 @@ class MainSection extends Component {
       return suggestions;
     })
     .then(suggestions => {
-      const songsWithMood = this.props.getMoodScores(this.props.token, suggestions); // add in moodScores
+      const songsWithMood = props.getMoodScores(props.token, suggestions); // add in moodScores
       
       return songsWithMood;
     })
     .then(songsWithMood => {
-      this.setState({ songSuggestions: songsWithMood });
+      setSongSuggestions(songsWithMood);
     })
     .catch( err => console.log(err));
   }
 
-  audioControl(audioLink, songIdClicked) {
-    if (!this.state.isPlaying) { // condition 1: when no song is playing
-      this.setState({
-        currAudio: new Audio(audioLink),
-        isPlaying: true,
-        songIdPlaying: songIdClicked
-      }, () =>{        
-        this.state.currAudio.play(); // play song
-      });
-    } else if (this.state.currAudio.currentSrc === audioLink && this.state.isPlaying) { // condition 2: stop when press the same song
-      this.state.currAudio.pause(); // pause song
-      this.setState({isPlaying: false});
-    } else if (this.state.currAudio.currentSrc !== audioLink && this.state.isPlaying) { // condition 3: switch to a new song
-      this.state.currAudio.pause();
-      this.setState({
-        currAudio: new Audio(audioLink),
-        songIdPlaying: songIdClicked
-      }, () => {
-        this.state.currAudio.play();
-      });
+  const audioControl = (audioLink, songIdClicked) => {
+    if (!isPlaying) { // condition 1: when no song is playing
+      setCurrAudio(new Audio(audioLink));
+      setIsPlaying(true);
+      setSongIdPlaying(songIdClicked);
+      // currAudio.play() in useEffect
+    } else if (currAudio.currentSrc === audioLink && isPlaying) { // condition 2: stop when press the same song
+      currAudio.pause(); // pause song
+      setIsPlaying(false);
+    } else if (currAudio.currentSrc !== audioLink && isPlaying) { // condition 3: switch to a new song
+      currAudio.pause();
+      setCurrAudio(new Audio(audioLink));
+      setSongIdPlaying(songIdClicked);
+      // currAudio.play() in useEffect
     }
   }
 
-  close() {
-    this.setState({showModal: false}); // closes WelcomeModal Component
+  const close = () => {
+    setShowModal(false); // closes WelcomeModal Component
   }
 
-  render() {
-    const { 
-      songTracks,
-      sortOption,
-      moodRange
-    } = this.props;
+  /******** Props Variables ********/
+  const { 
+    songTracks,
+    sortOption,
+    moodRange
+  } = props;
 
-    const { 
-      songSuggestions,
-      isPlaying,
-      songIdPlaying
-    } = this.state;
-
-    let suggestionsListComponent;
+  let suggestionsListComponent;
 
     if (songSuggestions && songSuggestions.length) { // if songSuggestions is not falsy, and the length is not 0
       suggestionsListComponent = songSuggestions.map(
@@ -138,7 +123,7 @@ class MainSection extends Component {
               <SongItem 
                 song={song}
                 exterURL={song.external_url}
-                audioControl={this.audioControl}
+                audioControl={audioControl}
                 songIsPlaying={isPlaying}
                 songIdPlaying={songIdPlaying}
               />
@@ -152,33 +137,32 @@ class MainSection extends Component {
         </div>
       );
     }
-
-    return (
-      <div>
-        <SearchBar 
-          songSearch={this.songSearch}
-          showSearchResults={this.showSearchResults}
-        />
-        <ul className='search-results'>
-          {this.state.searchResults && suggestionsListComponent}
-        </ul>
-        {!this.state.searchResults && 
-        (<BillboardSongs 
-          songTracks={songTracks}
-          sortOption={sortOption}
-          moodRange={moodRange}
-          audioControl={this.audioControl}
-          songIsPlaying={isPlaying}
-          songIdPlaying={songIdPlaying}
-        />)
-        }
-        <WelcomeModal 
-          showModal={this.state.showModal}
-          close={this.close}
-        />
-      </div>
-    )
-  }
+  
+  return (
+    <div>
+      <SearchBar 
+        songSearch={songSearch}
+        showSearchResults={showSearchResults}
+      />
+      <ul className='search-results'>
+        {searchResults && suggestionsListComponent}
+      </ul>
+      {!searchResults && 
+      (<BillboardSongs 
+        songTracks={songTracks}
+        sortOption={sortOption}
+        moodRange={moodRange}
+        audioControl={audioControl}
+        songIsPlaying={isPlaying}
+        songIdPlaying={songIdPlaying}
+      />)
+      }
+      <WelcomeModal 
+        showModal={showModal}
+        close={close}
+      />
+    </div>
+  )
 }
 
 export default MainSection;

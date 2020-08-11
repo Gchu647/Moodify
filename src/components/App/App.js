@@ -5,7 +5,7 @@ import { headers, data } from '../../config';
 import './App.css';
 import VerticalSlider from '../VerticalSlider/VerticalSlider';
 import MoodButtonGroup from '../MoodButtonGroup/MoodButtonGroup';
-import MainSectionHook from '../MainSection/MainSectionHook';
+import MainSection from '../MainSection/MainSection';
 
 const App = () => {
   /******** State Variables ********/
@@ -172,7 +172,7 @@ const App = () => {
           />
         </div>
         <div className='main-section'>
-          <MainSectionHook
+          <MainSection
             songTracks={items}
             sortOption={sortOption}
             moodRange={moodRange}
