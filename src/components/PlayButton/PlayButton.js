@@ -1,72 +1,58 @@
-import React, {Component} from 'react';
+import React, {useState, useEffect} from 'react';
 import './PlayButton.css';
 import NoPreviewModal from '../NoPreviewModal/NoPreviewModal';
 
-class PlayButton extends Component {
-  constructor(props) {
-    super(props);
+const PlayButton = (props) => {
+  /******** State Variables ********/
+  const [showModal, setShowModal] = useState(false);
 
-    this.state = {
-      showModal: false
-    }
+  /******** Props Variables ********/
+  const {
+    songIsPlaying,
+    songIdPlaying,
+    songIdClicked,
+    audioLink,
+    audioControl,
+    exterURL
+  } = props;
 
-    this.audioButton = this.audioButton.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
+  /******** Functions ********/
+  const close = () => {
+    setShowModal(false); // closes NoPreviewModal
   }
 
-  audioButton () {
-    const {
-      songIsPlaying,
-      songIdPlaying,
-      songIdClicked
-    } = this.props;
+  const open = () => {
+    setShowModal(true); // opens NoPreviewModal
+  }
 
+  const audioButton = () => {
     if(songIsPlaying && (songIdPlaying === songIdClicked)) {
-      return (<i className="material-icons" onClick={this.handleClick}>stop</i>);
+      return (<i className="material-icons" onClick={handleClick}>stop</i>);
     } else {
-      return (<i className="material-icons" onClick={this.handleClick}>play_arrow</i>);
+      return (<i className="material-icons" onClick={handleClick}>play_arrow</i>);
     }
   }
 
-  handleClick() {
-    const {
-      audioControl,
-      audioLink,
-      songIdClicked
-    } = this.props;
-
+  const handleClick = () => {
     if(audioLink) {
       audioControl(audioLink, songIdClicked); // call on the audioControl in MainSection
     } else {
-      this.open();
+      open();
     }
   }
 
-  close() {
-    this.setState({showModal: false}); // closes NoPreviewModal
-  }
-
-  open() {
-    this.setState({ showModal: true }); // opens NoPreviewModal
-  }
-
-  render() {
-
-    return(
-      <div>
-        <div className="audio-button ">
-          {this.audioButton()}
-        </div>
-        <NoPreviewModal 
-          showModal={this.state.showModal}
-          close={this.close}
-          exterURL={this.props.exterURL}
-        />
+  return(
+    <div>
+      <div className="audio-button ">
+        {audioButton()}
       </div>
-    );
-  }
+      <NoPreviewModal 
+        showModal={showModal}
+        close={close}
+        exterURL={exterURL}
+      />
+    </div>
+  );
 }
 
 export default PlayButton;
